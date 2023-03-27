@@ -1,12 +1,12 @@
 class Employee:
 
-    def __int__(self, employee_id, name, phone_number, work_experience, email, password, position):
+    def __init__(self, employee_id, name, email, password, phone_number, work_experience, position):
         self.employee_id = employee_id
         self.name = name
-        self.phone_number = phone_number
-        self.work_experience = work_experience
         self.email = email
         self.password = password
+        self.phone_number = phone_number
+        self.work_experience = work_experience
         self.position = position
 
     def get_employee_id(self):

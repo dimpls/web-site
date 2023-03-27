@@ -1,8 +1,8 @@
 class Review:
 
-    def __int__(self, review_id, author_id, employee_id, body):
+    def __init__(self, review_id, user_id, employee_id, body):
         self.review_id = review_id
-        self.author_id = author_id
+        self.user_id = user_id
         self.employee_id = employee_id
         self.body = body
 

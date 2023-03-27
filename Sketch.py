@@ -1,5 +1,5 @@
 class Sketch:
-    def __int__(self, sketch_id, description, price):
+    def __init__(self, sketch_id, description, price):
         self.sketch_id = sketch_id
         self.description = description
         self.price = price

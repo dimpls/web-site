@@ -1,11 +1,11 @@
 class Session:
-    def __init__(self, user_id, session_id, date, description, status, eployee_id, sketch_id):
-        self.user_id = user_id
+    def __init__(self, session_id, user_id, date, description, status, employee_id, sketch_id):
         self.session_id = session_id
-        self.eployee_id = eployee_id
+        self.user_id = user_id
         self.date = date
         self.description = description
         self.status = status
+        self.employee_id = employee_id
         self.sketch_id = sketch_id
 
     def get_user_id(self):
