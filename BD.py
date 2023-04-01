@@ -115,11 +115,70 @@ def updateInBd(obj, column_name, new_value):
         conn.close()
 
 
+def selectInBD(obj):
+    try:
+        conn = connect_to_bd()
+        with conn.cursor() as cursor:
+            if isinstance(obj, Employee):
+                print("[INFO] Employee")
+                query = f"""SELECT * FROM public."Employee" where employee_id = {str(list(vars(obj).values())[0])}"""
+                cursor.execute(query)
+                row = cursor.fetchall()
+                if len(row) == 0:
+                    raise Exception("[ERROR]No rows returned from SELECT query(Employee).")
+                else:
+                    return row
+            elif isinstance(obj, User):
+                print("[INFO] User")
+                query = f"""SELECT * FROM public."User" where user_id = {str(list(vars(obj).values())[0])}"""
+                cursor.execute(query)
+                row = cursor.fetchall()
+                if len(row) == 0:
+                    raise Exception("[ERROR]No rows returned from SELECT query(User).")
+                else:
+                    return row
+            elif isinstance(obj, Session):
+                print("[INFO] Session")
+                query = f"""SELECT * FROM public."Session" where session_id = {str(list(vars(obj).values())[0])}"""
+                cursor.execute(query)
+                row = cursor.fetchall()
+                if len(row) == 0:
+                    raise Exception("[ERROR]No rows returned from SELECT query(Session).")
+                else:
+                    return row
+            elif isinstance(obj, Review):
+                print("[INFO] Review")
+                query = f"""SELECT * FROM public."Review" where review_id = {str(list(vars(obj).values())[0])}"""
+                cursor.execute(query)
+                row = cursor.fetchall()
+                if len(row) == 0:
+                    raise Exception("[ERROR]No rows returned from SELECT query(Review).")
+                else:
+                    return row
+            elif isinstance(obj, Sketch):
+                print("[INFO] Sketch")
+                query = f"""SELECT * FROM public."Sketch" where sketch_id = {str(list(vars(obj).values())[0])}"""
+                cursor.execute(query)
+                row = cursor.fetchall()
+                if len(row) == 0:
+                    raise Exception("[ERROR]No rows returned from SELECT query(Sketch).")
+                else:
+                    return row
+            conn.commit()
+    except Exception as ex:
+        print(ex)
+    finally:
+        conn.close()
+
+
+
 emp = Employee(1, 'ИмяФам', 'email@gmail.com', 'password123', '79371112312', 2, 'Master')
 usr = User(2, 'email@gmail.com', 'password123', 'ИмяФам', '79371112312')
-sess = Session(1, 3, '12.03.2023', 'Дракона хочу', 'В процессе', 2, 1)
-rew = Review(1, 2, 2, '10/10')
+sess = Session(1, usr, '12.03.2023', 'Дракона хочу', 'В процессе', emp, 1)
+rew = Review(1, usr, emp, '10/10')
 skt = Sketch(1, 'Dog', 1322)
+print()
+#selectInBD(skt)
 #insertToBD(skt)
 #deleteFromBD(skt)
 #updateInBd(skt, 'price', '2555')
