@@ -34,12 +34,16 @@ def insertToBD(obj):
             elif isinstance(obj, Session):
                 print("[INFO] Session")
                 query = """INSERT INTO public."Session"(session_id, user_id, date, description, status, employee_id, sketch_id) VALUES(%s, %s, %s, %s, %s, %s, %s)"""
-                values = tuple(vars(obj).values())
-                cursor.execute(query, values)
+                values = list(vars(obj).values())
+                values[1] = obj.get_user_instance()[0]
+                values[5] = obj.get_employee_instance()[0]
+                cursor.execute(query, tuple(values))
             elif isinstance(obj, Review):
                 print("[INFO] Review")
                 query = """INSERT INTO public."Review"(review_id, user_id, employee_id, body) VALUES(%s, %s, %s, %s)"""
-                values = tuple(vars(obj).values())
+                values = list(vars(obj).values())
+                values[1] = obj.get_user_instance()[0]
+                values[2] = obj.get_employee_instance()[0]
                 cursor.execute(query, values)
             elif isinstance(obj, Sketch):
                 print("[INFO] Sketch")
@@ -59,24 +63,42 @@ def deleteFromBD(obj):
         with conn.cursor() as cursor:
             if isinstance(obj, Employee):
                 print("[INFO] Employee")
-                query = f"""DELETE FROM public."Employee" WHERE employee_id =  """ + str(list(vars(obj).values())[0])
-                cursor.execute(query)
+                cursor.execute(
+                    f"""DELETE FROM public."Session" WHERE employee_id = {str(list(vars(obj).values())[0])}""")
+                cursor.execute(
+                    f"""DELETE FROM public."Review" WHERE employee_id = {str(list(vars(obj).values())[0])}""")
+                cursor.execute(
+                    f"""DELETE FROM public."Employee" WHERE employee_id = {str(list(vars(obj).values())[0])}"""
+                )
             elif isinstance(obj, User):
                 print("[INFO] User")
-                query = """DELETE FROM public."User" WHERE user_id =  """ + str(list(vars(obj).values())[0])
-                cursor.execute(query)
+                cursor.execute(
+                    f"""DELETE FROM public."Session" WHERE user_id = {str(list(vars(obj).values())[0])}"""
+                )
+                cursor.execute(
+                    f"""DELETE FROM public."Review" WHERE user_id = {str(list(vars(obj).values())[0])}"""
+                )
+                cursor.execute(
+                    f"""DELETE FROM public."User" WHERE user_id = {str(list(vars(obj).values())[0])}"""
+                )
             elif isinstance(obj, Session):
                 print("[INFO] Session")
-                query = """DELETE FROM public."Session" WHERE session_id =  """ + str(list(vars(obj).values())[0])
-                cursor.execute(query)
+                cursor.execute(
+                    f"""DELETE FROM public."Session" WHERE session_id = {str(list(vars(obj).values())[0])}"""
+                )
             elif isinstance(obj, Review):
                 print("[INFO] Review")
-                query = """DELETE FROM public."Review" WHERE review_id =  """ + str(list(vars(obj).values())[0])
-                cursor.execute(query)
+                cursor.execute(
+                    f"""DELETE FROM public."Review" WHERE review_id = {str(list(vars(obj).values())[0])}"""
+                )
             elif isinstance(obj, Sketch):
                 print("[INFO] Sketch")
-                query = """DELETE FROM public."Sketch" WHERE sketch_id =  """ + str(list(vars(obj).values())[0])
-                cursor.execute(query)
+                cursor.execute(
+                    f"""DELETE FROM public."Session" WHERE sketch_id = {str(list(vars(obj).values())[0])}"""
+                )
+                cursor.execute(
+                    f"""DELETE FROM public."Sketch" WHERE sketch_id = {str(list(vars(obj).values())[0])}"""
+                )
             conn.commit()
     except Exception as ex:
         print(ex)
@@ -172,13 +194,13 @@ def selectInBD(obj):
 
 
 
-emp = Employee(1, 'ИмяФам', 'email@gmail.com', 'password123', '79371112312', 2, 'Master')
+emp = Employee(2, 'ИмяФам', 'email@gmail.com', 'password123', '79371112312', 2, 'Master')
 usr = User(2, 'email@gmail.com', 'password123', 'ИмяФам', '79371112312')
-sess = Session(1, usr, '12.03.2023', 'Дракона хочу', 'В процессе', emp, 1)
-rew = Review(1, usr, emp, '10/10')
+sess = Session(2, usr, '12.03.2023', 'Дракона хочу', 'В процессе', emp, 1)
+rew = Review(2, usr, emp, '7/10')
 skt = Sketch(1, 'Dog', 1322)
-print()
-#selectInBD(skt)
-#insertToBD(skt)
-#deleteFromBD(skt)
-#updateInBd(skt, 'price', '2555')
+
+#print(selectInBD(sess))
+#insertToBD(rew)
+deleteFromBD(usr)
+#updateInBd(sess, 'status', 'test2')
