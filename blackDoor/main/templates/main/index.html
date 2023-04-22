@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}" />
+    <link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC" />
+    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+    <header>
+        
+        <div class="header">
+            <div class="header-title">
+                <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
+                <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
+                <div class="header-buttons">
+                    <span><a href="#">Услуги</a></span>
+                    <span><a href="#">Команда</a></span>
+                    <span><a href="#">Портфолио</a></span>
+                    <span><a href="#">FAQ</a></span>
+                </div>
+                <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
+            </div>
+            <div class="header-name">
+                <h3>BLACK DOOR</h3>
+                <h4>#BDSMR</h4>
+                <h5>5-я просека, 129, Самара</h5>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="services">
+            <div class="div-h2">
+                <h2>Услуги</h2>
+            </div>
+            <div class="photo">
+                <div class="image2">
+                    <img class="services-photo" src="{% static 'main/img/services1.png' %}" alt="Услуги">
+                    <div class="image_description">
+                        <div class="image_title">Татуировки и эскизы</div>
+                    </div>
+                </div>
+                <div class="image2">
+                    <img class="services-photo" src="{% static 'main/img/services2.png' %}" alt="Услуги">
+                    <div class="image_description">
+                        <div class="image_title">Перекрытие и сведение</div>
+                    </div>
+                </div>
+                <div class="image2">
+                    <img class="services-photo" src="{% static 'main/img/services3.png' %}" alt="Услуги">
+                    <div class="image_description">
+                        <div class="image_title">Перманентный макияж</div>
+                    </div>
+                </div>
+                <div class="image2">
+                    <img class="services-photo" src="{% static 'main/img/services4.png' %}" alt="Услуги">
+                    <div class="image_description">
+                        <div class="image_title">Обучение</div>
+                    </div>
+                </div>
+            </div>
+            <div class="services-button">
+                <button class="button-signup">Записаться на сеанс</button>
+            </div>
+        </div>
+
+        <div class="masters">
+            <div class="div-h2-2">
+                <h2>РАБОТЫ НАШИХ МАСТЕРОВ</h2>
+            </div>
+            <div class="photo-work">
+                <img class="work-example" src="{% static 'main/img/workexample1.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample2.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample3.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample4.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample5.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample6.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample7.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample8.svg' %}" alt="Пример работы">
+                <img class="work-example" src="{% static 'main/img/workexample9.svg' %}" alt="Пример работы">
+                <button class="more-button">Показать ещё</button>
+            </div>
+        </div>
+
+        <div class="team">
+            <div class="div-h2-3">
+                <h2>НАША КОМАНДА</h2>
+            </div>
+            <div class="text">
+                <div class="div-h3">
+                    <h3>
+                        Интересуют работы конкретного мастера?
+                    </h3>
+                    <h3>
+                        В личном портфолио мастеров собрано еще больше работ, переходи на страницу, чтобы посмотреть.
+                    </h3>
+                </div>
+            </div>
+            <div class="photo-team">
+                <div class="image">
+                    <img class="master" src="{% static 'main/img/master1.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Юлия</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image">
+                    <img class="master" src="{% static 'main/img/master2.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Иван</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image">
+                    <img class="master" src="{% static 'main/img/master3.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Соня</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image">
+                    <img class="master" src="{% static 'main/img/master4.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Максим</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image">
+                    <img class="master" src="{% static 'main/img/master5.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Оля</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image">
+                    <img class="master" src="{% static 'main/img/master6.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Евгений</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="div-h2-4">
+            <h2>О НАШЕМ САЛОНЕ</h2>
+        </div>
+
+        <div class="salon">
+            
+            <div class="main-info">
+                <div class="info">
+                    <h2>BLACK DOOR</h2>
+                    <h3>Тату салон в Самаре</h3>
+                </div>
+    
+                <div class="text-desc">
+                    <h3>
+                        Мы работаем более 7 лет и действительно хорошо разбираемся в татуировке.
+                    </h3>
+                    <h3>
+                        В нашем салоне мы считаем, что каждая татуировка - это произведение искусства, знания и опыт наших мастеров помогут воплотить ваше видение в жизнь.
+                    </h3>
+                </div>
+                <div class="vk-phone">
+                    <img class="vk" src="{% static 'main/img/vk.png' %}" alt="Вк">
+                    <div class="contacts">
+                        <h3>+7 (927) 017-16-61</h3>
+                        <h3>Ежедневно и круглосуточно</h3>
+                    </div>
+                </div>
+                <div class="adress">
+                    <h3>5-я просека, 129, Самара</h3>
+                </div>
+            </div>
+            <div class="map">
+                <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A1ecf3e3e0aaf04f7e1afca973ac37a94abd11f8a076e825eae0cf86e44f860df&amp;width=549&amp;height=498&amp;lang=ru_RU&amp;scroll=true"></script>
+            </div>
+        </div>
+    </main>
+    <body>
+
+    </body>
+</html>

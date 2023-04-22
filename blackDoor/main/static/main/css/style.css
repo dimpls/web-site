@@ -1,0 +1,550 @@
+html {
+    height: 100%;
+}
+
+.header{
+    max-width: auto;
+    min-width: 900px;
+    width: auto;
+    height: 800px;
+    background-image: url(../img/tattoo-salon.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    box-shadow: inset 0px -42px 57px -13px rgba(0,0,0,1);
+}
+
+.header-title{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: 99px;
+    background: rgba(0, 0, 0, 0.74);
+    align-items: center;
+}
+
+
+.door {
+    width: 40px;
+    height: 48px;
+    margin-left: 31px;
+}
+
+.BDSMR{
+    width: 162px;
+    height: 58px;
+    margin-left: 8px;
+}
+
+.header-buttons{
+    width: auto;
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.account-icon {
+    margin-right: 30px;
+}
+
+.header-buttons a{
+    color: #FFF;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 54px;
+/* identical to box height, or 272% */
+
+    text-align: center;
+    letter-spacing: 0.8384px;
+    margin-right: 30px;
+    text-decoration: none;
+}
+
+.header-name {
+    width: auto;
+    height: 200px;
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 225px;
+}
+
+.header-name h3 {
+    font-family: 'Holtwood One SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 59px;
+    line-height: 76px;
+    text-align: center;
+    letter-spacing: 1.2416px;
+    margin: 0 0 16px 0;
+}
+
+.header-name h4 {
+    font-family: 'Holtwood One SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 54px;
+
+
+    text-align: center;
+    letter-spacing: 0.8384px;
+    margin: 0 0 20px 0;
+}
+
+.header-name h5 {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+    text-align: center;
+    letter-spacing: 0.3776px;
+    margin: 0;
+}
+
+.services {
+    width: 100%;
+    height: auto;
+    background-color: #0F1010;
+}
+
+.div-h2 {
+    display: flex;
+    justify-content: center;
+}
+
+
+.div-h2 h2 {
+    width: 321px;
+    height: 61px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 59px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+    margin-top: 0;
+    margin-top: 37px;
+    margin-bottom: 31px;
+}
+
+.photo {
+    display: flex;
+    justify-content: center;
+}
+
+.services-photo {
+    background: #000;
+    opacity: 0.8;
+    border-radius: 15px;
+    margin-right: 20px;
+}
+
+
+
+
+.services-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+}
+
+.button-signup {
+    width: 356px;
+    height: 63px;
+    border: 3px solid #565656;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+}
+
+.masters {
+    width: 100%;
+    height: auto;
+    background-color: #0F1010;
+}
+
+.div-h2-2 {
+    display: flex;
+    justify-content: center;
+}
+
+.div-h2-2 h2{
+    width: 662px;
+    height: 59px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 59px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+    margin-top: 67px;
+    margin-bottom: 100px;
+}
+
+.photo-work{
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 290px 290px 290px;
+    grid-template-rows: 290px 290px 290px 59px;
+    column-gap: 26px;
+    row-gap: 20px;
+    justify-content: center;
+}
+
+.work-example {
+    border-radius: 15px;
+}
+
+.more-button {
+    display: grid;
+    grid-column: 3;
+    grid-row: 4;
+    width: 252px;
+    height: 59px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 59px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+    background-color: transparent;
+    border-color: transparent;
+    margin-top: -26px;
+    justify-self: end;
+}
+
+
+.team {
+    width: 100%;
+    height: auto;
+    background-color: #0F1010; 
+}
+
+.div-h2-3 {
+    width: 100%;
+    height: 59px;
+}
+
+.div-h2-3 h2 {
+    margin: 0;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 59px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+
+    color: #FFFFFF;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+    margin-top: 21px;
+    margin-bottom: 47px;
+}
+
+.div-h3 {
+    width: 726px;
+    height: auto;
+}
+
+.div-h3 h3{ 
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.5248px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.photo-team{
+
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 265px 265px 265px;
+    grid-template-rows: 265px 265px;
+    column-gap: 63px;
+    row-gap: 54px;
+    justify-content: center;
+}
+
+.image {
+    position: relative;
+    width: 265px;
+    height: 265px;
+}
+
+.master {
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.image_description {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #FFFFFF;
+    font-family: 'Ubuntu';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 15px;
+}
+
+
+.image_description > * {
+    transform: translateY(20px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.image_description:hover {
+    opacity: 0.8;
+}
+
+.image_description:hover > *{
+    transform: translateY(0);
+}
+
+.imag_title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.button-master {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: transparent;
+    border-color: transparent;
+    color: #797979;
+}
+
+.button-master:active {
+    color: red;
+}
+
+.salon {
+    width: 100%;
+    height: auto;
+    background-color: #0F1010; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.div-h2-4 {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background-color: #0F1010; 
+    margin: 0;
+}
+
+.div-h2-4 h2{ 
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 59px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+    margin-top: 154px;
+    margin-bottom: 53px;
+}
+
+.main-info{
+    display: flex;
+    flex-direction: column;
+    width: 439px;
+    height: auto;
+    background-color: #1E1E1E;
+}
+
+
+.info h2 {
+    font-family: 'Holtwood One SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    /* or 237% */
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 1.2416px;
+    line-height: 40px;
+    color: #FFFFFF; 
+    margin: 0;
+    margin-left: 48px;
+    margin-top: 53px;
+    
+}
+
+.info h3 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+    line-height: 20px;
+    margin: 0;
+    margin-left: 48px;
+}
+
+.text-desc {
+    width: 391px;
+    height: 171px;
+    margin-top: 30px;
+}
+
+.text-desc h3 {
+    margin: 0px;
+    margin-left: 48px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+}
+
+
+.text-desc h3:last-child {
+    margin-top: 20px;
+    
+}
+
+.vk-phone {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.vk {
+    width: 74px;
+    height: 74px;
+    margin-left: 48px;
+}
+.contacts {
+    display: flex;
+    flex-direction: column;
+    margin-left: 32px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.contacts h3:first-child{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.contacts h3:last-child{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.adress {
+    margin-left: 48px;
+}
+
+.adress h3{
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+
+    letter-spacing: 0.3776px;
+
+    color: #FFFFFF;
+    margin-top: 28px;
+}
+
+.main-info {
+    margin-bottom: 142px;
+    width: 549px;
+    height: 498px;
+}
+
+.services-name {
+    position: relative;
+    width: 265px;
+    height: 265px;
+}
+
+.services-photo {
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.image2 {
+    position: relative;
+    width: 265px;
+    height: 265px;
+    margin-right: 20px;
+}
+
+.image_title {
+    font-size: 1.22em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
