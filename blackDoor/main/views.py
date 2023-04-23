@@ -8,3 +8,6 @@ def index(request):
 
 def about(request):
     return HttpResponse("<h4>about</h4>")
+
+def personal_cabinet_page(request):
+    return render(request, 'main/personal_cabinet.html')

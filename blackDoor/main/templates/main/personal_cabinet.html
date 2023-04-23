@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/stylePC.css' %}"/>
+    <link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC" />
+    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+    <header>
+        <script src="{% static 'main/script/script.js' %}"></script>
+        <div class="header">
+            <div class="header-title">
+                <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
+                <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
+                <div class="header-buttons">
+                    <span><a href="#">Услуги</a></span>
+                    <span><a href="#">Команда</a></span>
+                    <span><a href="#">Портфолио</a></span>
+                    <span><a href="#">FAQ</a></span>
+                </div>
+                <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
+            </div>
+        </div>
+    </header>
+    <main class="main-cont">
+        <div class="personal-info">
+            <div class="avatar">
+                <div class="icon">
+                    <img class="avatar-img" src="{% static 'main/img/avatar.png' %}" alt="Аватарка">
+                    <img class="pinion" src="{% static 'main/img/pinion.png' %}" alt="шестеренка">
+                </div>
+            </div>
+            <div class="info">
+                <div class="name_bd">
+                    <h3>Иванов Иван</h3>
+                    <h4>17.05.01</h4>
+                </div>
+                <div class="statistic">
+                    <h3>Сделано тату в нашей студии: 2</h3>
+                    <h4>Прислединился в 2020 году</h3>
+                </div>
+            </div>
+        </div>
+        
+        <div class="entry">
+            <div class="entry-text">
+                <h3>Хочешь записаться?</h3>
+                <h4>Выбери удобное время и день, и мы с тобой свяжемся.</h3>
+             </div>
+        </div>
+        <div class="box-calendar">
+            <div id="calendar">
+                <div class="calendar-table">
+                    <div class="calendar-header">
+                        <div class="calendar-header-day">Пн</div>
+                        <div class="calendar-header-day">Вт</div>
+                        <div class="calendar-header-day">Ср</div>
+                        <div class="calendar-header-day">Чт</div>
+                        <div class="calendar-header-day">Пт</div>
+                        <div class="calendar-header-day">Сб</div>
+                        <div class="calendar-header-day">Вс</div>
+                      </div>
+                      <div class="calendar-body">
+          
+                      </div>
+                </div>
+                
+                <div class="calendar-footer">
+                    <div class="calendar-time">
+                      <label for="time">Время:</label>
+                      <input type="time" id="time" name="time">
+                    </div>
+                    <div class="calendar-master">
+                        <label for="master">Мастер:</label>
+                        <select id="master" name="master">
+                          <option value="" selected></option>
+                          <option value="Мастер 1">Мастер Юля</option>
+                          <option value="Мастер 2">Мастер Иван</option>
+                          <option value="Мастер 3">Мастер Соня</option>
+                          <option value="Мастер 4">Мастер Максим</option>
+                          <option value="Мастер 5">Мастер Оля</option>
+                          <option value="Мастер 6">Мастер Евгений</option>
+                        </select>
+                      </div>
+                    <button class="calendar-submit">Подтвердить запись</button>
+                </div>
+                
+            </div>
+            <div class="end">
+
+            </div>
+        </div>
+
+    </main>
+    <body>
+
+    </body>
+</html>
