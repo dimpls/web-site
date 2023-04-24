@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'portfolio/css/stylePortfolio.css' %}"/>
+    <link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC" />
+    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+
+    <header>
+
+        <div class="header">
+            <div class="header-title">
+                <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
+                <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
+                <div class="header-buttons">
+                    <span><a href="#">Услуги</a></span>
+                    <span><a href="#">Команда</a></span>
+                    <span><a href="#">Портфолио</a></span>
+                    <span><a href="#">FAQ</a></span>
+                </div>
+                <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {{ info }}
+        {% endblock %}
+        <div class="team">
+            <h2>Наша команда</h2>
+            <div class="photo-team">
+                <div class="image" data-master-id="1">
+                    <img class="master" src="{% static 'main/img/master1.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Юлия</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image" data-master-id="2">
+                    <img class="master" src="{% static 'main/img/master2.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Иван</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image" data-master-id="3">
+                    <img class="master" src="{% static 'main/img/master3.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Соня</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image" data-master-id="4">
+                    <img class="master" src="{% static 'main/img/master4.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Максим</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image" data-master-id="5">
+                    <img class="master" src="{% static 'main/img/master5.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Оля</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+                <div class="image" data-master-id="6">
+                    <img class="master" src="{% static 'main/img/master6.png' %}" alt="Мастер">
+                    <div class="image_description">
+                        <div class="imag_title">Евгений</div>
+                        <button class="button-master">показать портфолио</button>
+                    </div>
+                </div>
+            </div>
+            <div class="end">
+                
+            </div>
+        </div>
+        
+    </main>
+    <body>
+
+    </body>
+</html>

@@ -11,3 +11,6 @@ def about(request):
 
 def personal_cabinet_page(request):
     return render(request, 'main/personal_cabinet.html')
+
+def portfolio(request):
+    return render(request, 'portfolio/portfolio.html')

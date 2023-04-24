@@ -1,0 +1,114 @@
+html {
+    height: 100%;
+}
+
+.header{
+    max-width: auto;
+    min-width: 900px;
+    width: auto;
+    height: auto !important;
+    background-color: #0F1010;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    box-shadow: inset 0px -42px 57px -13px rgba(0,0,0,1);
+}
+
+.header-title{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: 99px;
+    background: rgba(0, 0, 0, 0.74);
+    align-items: center;
+}
+
+
+.door {
+    width: 40px;
+    height: 48px;
+    margin-left: 31px;
+}
+
+.BDSMR{
+    width: 162px;
+    height: 58px;
+    margin-left: 8px;
+}
+
+.header-buttons{
+    width: auto;
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.account-icon {
+    margin-right: 30px;
+}
+
+.header-buttons a{
+    color: #FFF;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 54px;
+
+    text-align: center;
+    letter-spacing: 0.8384px;
+    margin-right: 30px;
+    text-decoration: none;
+}
+
+.photo-master {
+    width: 100%;
+    height: auto;
+    background-color: #1E1E1E;
+    position: relative;
+    display: inline-block;
+}
+
+.photo-Ylya{
+    display: block;
+    width: 100%;
+    height: 573px;
+}
+
+.photo-master h2 {
+    
+    position: absolute;
+    bottom: 40px;
+    right: 131px;
+    margin: 0;
+
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 54px;
+/* identical to box height, or 136% */
+
+    text-align: center;
+    letter-spacing: 0.8384px;
+
+    color: #FFFFFF;
+}
+
+.photo-master h3 {
+    
+    position: absolute;
+    bottom: 0;
+    right: 129px;
+    margin: 0;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 38.7px;
+    line-height: 54px;
+    /* identical to box height, or 136% */
+
+    text-align: center;
+    letter-spacing: 0.8384px;
+
+    color: #FFFFFF;
+}
