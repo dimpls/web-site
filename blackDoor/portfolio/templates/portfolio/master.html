@@ -1,7 +1,8 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="styleMaster.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'portfolio/css/styleMaster.css' %}"/>
     <link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC" />
     <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
@@ -9,22 +10,22 @@
     <header>
         <div class="header">
             <div class="header-title">
-                <img class="door" src="fonts/door.svg" alt="door">
-                <img class="BDSMR" src="fonts/BDSMr.svg" alt="BDSMR">
+                <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
+                <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
                 <div class="header-buttons">
                     <span><a href="#">Услуги</a></span>
                     <span><a href="#">Команда</a></span>
                     <span><a href="#">Портфолио</a></span>
                     <span><a href="#">FAQ</a></span>
                 </div>
-                <img class="account-icon" src="fonts/account_icon.svg" alt="account_icon">
+                <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
             </div>
         </div>
     </header>
     <main>
         <div class="photo-master">
-            <img class="photo-Ylya" src="fonts/MasterYlya.png" alt="Мастер Юлия">
-            <h2>Мастер Юлия</h2>
+            <img class="photo-Ylya" src="{% static 'portfolio/img/MasterIvan.jpg' %}" alt="Мастер Юлия">
+            <h2>Мастер {{ master.name }}</h2>
             <h3>ПОРТФОЛИО</h3>
         </div>
     </main>
