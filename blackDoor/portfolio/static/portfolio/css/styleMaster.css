@@ -65,13 +65,15 @@ html {
     height: auto;
     background-color: #1E1E1E;
     position: relative;
-    display: inline-block;
+
 }
 
 .photo-Ylya{
     display: block;
-    width: 100%;
-    height: 573px;
+    width: 942px;
+    height: 570px;
+    margin: 0 auto;
+    border-radius: 10px;
 }
 
 .photo-master h2 {
@@ -111,4 +113,116 @@ html {
     letter-spacing: 0.8384px;
 
     color: #FFFFFF;
+}
+
+.description {
+    width: 1256px;
+    height: 614px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 85px;
+}
+
+.text {
+    width: 614px;
+    height: 560px;
+    background-color: #3A3A3A;
+}
+
+.info-master {
+    width: 100%;
+    height: auto;
+    background-color: #1E1E1E;
+    display: flex;
+    justify-content: center;
+}
+
+.text h2 {
+    width: 342px;
+    height: 77px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 27px;
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.8384px;
+
+    color: #FFFFFF;
+    margin: 0;
+    margin-bottom: 43px;
+    margin-left: 61px;
+    margin-top: 41px;
+}
+
+.info-text {
+    width: 434px;
+    height: 311px;
+}
+
+.sketch1 {
+    width: 300px;
+    height: 560px;
+    margin-left: 28px;
+}
+
+.h3-1, .h3-2, .h3-3{
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 25px;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+    margin: 0;
+    margin-left: 61px;
+}
+
+.h3-1, .h3-2 {
+    margin-bottom: 30px;
+}
+
+.button-signup {
+    width: 356px;
+    height: 63px;
+    border: 3px solid #565656;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+    margin-left: 129px;
+}
+
+.sketches {
+    width: 100%;
+    height: 1300px;
+    background-color: #1E1E1E;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sketch-type1 {
+    display: grid;
+    grid-template-columns: 450px 450px;
+    grid-template-rows: 450px;
+    column-gap: 42px;
+    padding-bottom: 37px;
+}
+
+.sketch-type2 {
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    grid-template-rows: 300px 300px;
+    row-gap: 24px;
+    column-gap: 21px;
 }
