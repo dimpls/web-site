@@ -37,6 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
         calendarBody.appendChild(day);
     }
 
+    // вычисление количества дней, которые необходимо добавить
+    var daysToAdd = 8 - ((calendarBody.children.length + firstDayOfMonth) % 7);
+
+    // добавление дней следующего месяца
+    for (var i = 1; i <= daysToAdd; i++) {
+      var nextDay = document.createElement('div');
+      nextDay.className = 'calendar-day calendar-day--next-month';
+      nextDay.innerHTML = i;
+      calendarBody.appendChild(nextDay);
+    }
+
     var submitButton = document.querySelector('.calendar-submit');
     submitButton.addEventListener('click', function() {
         var selectedTime = document.querySelector('#time').value;

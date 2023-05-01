@@ -309,7 +309,9 @@ html {
     opacity: 0.1;
 }
 
-
+.calendar-day.calendar-day--next-month{
+    opacity: 0.1;
+}
 
 .selected-day {
     background-color: #00bcd4;
