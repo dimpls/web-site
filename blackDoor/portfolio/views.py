@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
-from .models import Master
+from main.models import Employee
 from django.shortcuts import reverse, redirect
 # Create your views here.
 
 def portfolio(request):
-    info = Master.objects.all()
-    master = Master.objects.get(pk=1)
+    info = Employee.objects.all()
+    master = Employee.objects.get(pk=1)
     employee_id = master.employee_id
     name = master.name
     email = master.email
@@ -20,7 +20,7 @@ def portfolio(request):
 
 
 def show_master(request, master_id):
-    master = Master.objects.get(pk=master_id)
+    master = Employee.objects.get(pk=master_id)
     employee_id = master.employee_id
     name = master.name
     email = master.email
