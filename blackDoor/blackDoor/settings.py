@@ -133,3 +133,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "main/static",
     BASE_DIR / "portfolio/static",
 ]
+
+AUTH_USER_MODEL = 'main.User'
+
+AUTHENTICATION_BACKENDS = [
+     'django.contrib.auth.backends.ModelBackend',
+]
