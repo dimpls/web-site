@@ -4,29 +4,13 @@ from django.db import models
 from django.db import models
 
 
-class User(AbstractUser, PermissionsMixin):
-    username = None
+class User(AbstractUser):
     user_id = models.AutoField(primary_key=True)
-    email = models.CharField(max_length=32, unique=True)
+    email = models.EmailField(max_length=32, unique=True)
     name = models.CharField(max_length=128)
     phone_number = models.CharField(max_length=32, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['password']
 
-    class Meta:
-        db_table = 'User'
-
-    def __str__(self):
-        return self.email
-
-    def get_full_name(self):
-        return self.name
-
-    def get_short_name(self):
-        return self.name.split()[0]
 
 
 class Employee(models.Model):
