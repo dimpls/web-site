@@ -1,7 +1,40 @@
-<h1>Login</h1>
+{% load static %}
+<!DOCTYPE html>
+<html>
 
-<form action="{% url 'login' %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" id="submit">Login</button>
-</form>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'main/css/login.css' %}" />
+  <div class="background">
+      <div class="container">
+    <div class="login-box">
+    <h2>Log in</h2>
+    <form action="{% url 'login' %}" method="post" class="login-form">
+      {% csrf_token %}
+      <div class="group">
+
+        <input type="text" required name="{{ form.username.name }}">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Email</label>
+      </div>
+
+      <div class="group">
+        <input type="password" required name="{{ form.password.name }}">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Password</label>
+      </div>
+
+      <button type="submit" id="submit" class="button-80" role="button">Login</button>
+
+    </form>
+  </div>
+
+</div>
+  </div>
+
+
+</html>
+
+
+</html>
