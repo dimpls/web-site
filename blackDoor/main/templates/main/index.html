@@ -20,9 +20,13 @@
 
                     <span><a href="{% url 'portfolio' %}">Команда</a></span>
                     <span><a href="">Портфолио</a></span>
-                    <span></span>
-                    <span><a href="{% url 'register' %}">Регистрация</a></span>
-                    <span><a href="{% url 'login' %}">Вход</a></span>
+                    {% if request.user.is_authenticated %}
+                        <span><a>{{ user.get_full_name }}</a></span>
+                        <span><a href="{% url 'logout' %}">Выход</a></span>
+                    {% else %}
+                        <span><a href="{% url 'register' %}">Регистрация</a></span>
+                        <span><a href="{% url 'login' %}">Вход</a></span>
+                    {% endif %}
 
                 </div>
 

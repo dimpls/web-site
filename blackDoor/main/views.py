@@ -1,6 +1,6 @@
 from django.core.checks import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseNotFound
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
@@ -44,3 +44,8 @@ class RegisterView(generic.CreateView):
 class LoginView(auth_views.LoginView):
     form_class = LoginForm
     template_name = 'main/login.html'
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')

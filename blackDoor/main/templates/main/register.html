@@ -1,7 +1,71 @@
-<h1>Register</h1>
+{% load static %}
 
-<form action="{% url 'register' %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" id="submit">Register</button>
-</form>
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/register.css' %}" />
+    <link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC" />
+    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+
+    <div class="background">
+        <div class="container">
+            <div class="reg-box">
+                <h2>Создать учетную запись</h2>
+                <form action="{% url 'register' %}" method="post" class="login-form">
+                    {% csrf_token %}
+                    <div class="group">
+                        <input type="text" required name="{{ form.first_name.name }}">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Имя</label>
+                    </div>
+
+                    <div class="group">
+                        <input type="text" required name="{{ form.last_name.name }}">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Фамилия</label>
+                    </div>
+
+                    <div class="group">
+                        <input type="text" required name="{{ form.username.name }}">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Username</label>
+                    </div>
+
+                    <div class="group">
+                        <input type="text" required name="{{ form.phone_number.name }}">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Номер телефона</label>
+                    </div>
+
+                    <div class="group">
+                        <input type="text" required name="{{ form.email.name }}">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Email</label>
+                    </div>
+
+                    <div class="group">
+                        <input type="password" required name="{{ form.password1.name }}">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Пароль</label>
+                    </div>
+
+                    <div class="group">
+                        <input type="password" required name="{{ form.password2.name }}">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Повторите пароль</label>
+                    </div>
+
+                    <button type="submit" id="submit" class="button-80" role="button">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</html>
