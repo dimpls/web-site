@@ -30,6 +30,10 @@ def portfolio(request):
     return render(request, 'portfolio/portfolio.html')
 
 
+def sketch(request):
+    return render(request, 'main/sketch.html')
+
+
 def pageNotFound(request, exception):
     return render(request, 'main/404.html', status=404)
 

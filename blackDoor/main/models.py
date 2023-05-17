@@ -9,6 +9,8 @@ class User(AbstractUser):
     email = models.EmailField(max_length=32, unique=True)
     name = models.CharField(max_length=128)
     phone_number = models.CharField(max_length=32, null=True, blank=True)
+    date_of_birth = models.DateField(null=False, blank=False)
+    tattoos_made = models.PositiveIntegerField(default=0)
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"

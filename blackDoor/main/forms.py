@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 class RegisterForm(UserCreationForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'username', 'phone_number', 'email', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'date_of_birth', 'username', 'phone_number', 'email', 'password1', 'password2')
 
 
 class LoginForm(AuthenticationForm):

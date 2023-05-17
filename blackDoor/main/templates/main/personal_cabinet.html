@@ -35,12 +35,12 @@
             </div>
             <div class="info">
                 <div class="name_bd">
-                    <h3>Иванов Иван</h3>
-                    <h4>17.05.01</h4>
+                    <h3>{{ user.get_full_name }}</h3>
+                    <h4>{{ user.date_of_birth|date:"d.m.Y" }}</h4>
                 </div>
                 <div class="statistic">
-                    <h3>Сделано тату в нашей студии: 2</h3>
-                    <h4>Прислединился в 2020 году</h3>
+                    <h3>Сделано тату в нашей студии: {{ user.tattoos_made }}</h3>
+                    <h4>Прислединился в {{ user.date_joined|date:"Y" }} году</h4>
                 </div>
             </div>
         </div>
