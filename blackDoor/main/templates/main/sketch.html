@@ -28,125 +28,15 @@
             <div class="container">
                 <h2>Работы наших мастеров</h2>
                 <div class="galary">
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto1.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 1</div>
-                            <button class="button-master">Хочу</button>
+                    {% for sketch in sketches %}
+                        <div class="card">
+                            <img class="tatto" src="{{ sketch.photo.url }}" alt="Пример татуировки">
+                            <div class="image_description">
+                                <div class="imag_title">Скетч {{ sketch.sketch_id }}</div>
+                                <button class="button-master">Хочу</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto2.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 2</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto3.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 3</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto4.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 4</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto5.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 5</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto6.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 6</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto7.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 7</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto8.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 8</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto9.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 9</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto10.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 10</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto11.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 11</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto12.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 12</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto13.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 13</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto14.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 14</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto15.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 15</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto16.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 16</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="tatto" src="{% static 'main/img/tatto17.png' %}" alt="Пример татуировки">
-                        <div class="image_description">
-                            <div class="imag_title">Скетч 17</div>
-                            <button class="button-master">Хочу</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 

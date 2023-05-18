@@ -34,7 +34,7 @@ class Employee(models.Model):
 
 class Sketch(models.Model):
     sketch_id = models.AutoField(primary_key=True)
-    description = models.CharField(max_length=128)
+    photo = models.ImageField(upload_to='sketch_photos', default='default_image.png')  # Поле с фотографией
     price = models.FloatField()
 
     class Meta:

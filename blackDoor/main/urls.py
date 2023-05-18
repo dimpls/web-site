@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -25,5 +27,6 @@ urlpatterns = [
     path('sketch/', views.sketch, name='sketch'),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_user, name='logout'),
-]
+    path('add/', views.add_sketches, name='add_sketches'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

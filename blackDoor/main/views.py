@@ -12,6 +12,7 @@ from django.contrib.auth import views as auth_views
 from django.views import generic
 from django.urls import reverse_lazy
 from .forms import LoginForm
+from .models import Sketch
 
 
 def index(request):
@@ -31,7 +32,35 @@ def portfolio(request):
 
 
 def sketch(request):
-    return render(request, 'main/sketch.html')
+    sketches = Sketch.objects.all()
+    return render(request, 'main/sketch.html', {'sketches': sketches})
+
+
+def add_sketches(request):
+    # Предположим, у вас есть список путей к фотографиям, которые вы хотите добавить
+    photo_paths = ['main/static/main/img/tatto1.png', 'main/static/main/img/tatto2.png', 'main/static/main/img/tatto3.png', 'main/static/main/img/tatto4.png', 'main/static/main/img/tatto5.png',
+                   'main/static/main/img/tatto6.png', 'main/static/main/img/tatto7.png', 'main/static/main/img/tatto8.png', 'main/static/main/img/tatto9.png', 'main/static/main/img/tatto10.png',
+                   'main/static/main/img/tatto11.png', 'main/static/main/img/tatto12.png', 'main/static/main/img/tatto13.png', 'main/static/main/img/tatto14.png', 'main/static/main/img/tatto15.png',
+                   'main/static/main/img/tatto16.png', 'main/static/main/img/tatto17.png']
+
+    tmp = 1000.0
+    k = 1
+    for path in photo_paths:
+        # Создаем новый объект Sketch и сохраняем фотографию
+        sketch = Sketch()
+        sketch.price = 10
+        sketch.photo.save('tatto' + str(k) + '.png', open(path, 'rb'))
+        # Заполняем поле 'price' текущим значением price_temp
+        #sketch.price = 10.0
+        sketch.price = tmp
+        tmp += 1200.0
+        k += 1
+        # Сохраняем объект Sketch в базу данных
+        sketch.save()
+
+
+
+    return redirect('home')
 
 
 def pageNotFound(request, exception):
