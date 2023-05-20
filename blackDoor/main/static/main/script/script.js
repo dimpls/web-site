@@ -58,12 +58,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           selectedDate = '';
         }
+
+    });
+
     console.log('Запись на ' + selectedDate + '.' + (currentMonth + 1) + '.' + currentYear + ' в ' + selectedTime + ' к мастеру ' + selectedMaster + ' подтверждена');
   });
+
   
   
 });
-
-function showModal(month, day) {
-  console.log('Выбрана дата: ' + month + '/' + day);
-}

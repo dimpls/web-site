@@ -45,8 +45,7 @@ class Session(models.Model):
     session_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    description = models.CharField(max_length=128, null=True, blank=True)
-    status = models.CharField(max_length=32)
+    status = models.CharField(max_length=32, default='accepted')
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     sketch = models.ForeignKey(Sketch, on_delete=models.CASCADE)
 

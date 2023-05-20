@@ -207,13 +207,13 @@ html {
 
 .box-calendar {
     width: auto;
-    height: 630px;
+    height: auto;
     background-color: #1E1E1E;
 }
 
 #calendar {
     width: 650px;
-    height: 630px;
+    height: auto;
     font-size: 14px;
     overflow: hidden;
     background: #565656;
@@ -342,6 +342,29 @@ label[for="time"] {
     color: #FFFFFF;
 }
 
+.calendar-sketch {
+    padding-top:20px
+}
+
+.photo-sketch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+label[for="sketches"] {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 35px;
+    text-align: center;
+    letter-spacing: 0.8384px;
+    color: #FFFFFF;
+}
+
 .calendar-time input[type="time"] {
     width: auto;
     height: auto;
@@ -362,6 +385,24 @@ label[for="time"] {
 .calendar-time input[type="time"]:hover {
     border-color: #aaa;
     cursor: pointer;
+}
+
+.custom-button{
+    margin-top: 25px;
+    Width: 215px;
+    Height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Ubuntu';
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.sketch {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    margin-left: 50px;
 }
 
 .end {

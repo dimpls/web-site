@@ -1,7 +1,7 @@
 from django.core.checks import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -12,7 +12,10 @@ from django.contrib.auth import views as auth_views
 from django.views import generic
 from django.urls import reverse_lazy
 from .forms import LoginForm
-from .models import Sketch
+from .models import Sketch, Session, Employee, User
+from django.views.decorators.csrf import csrf_exempt
+import json
+from datetime import datetime
 
 
 def index(request):
@@ -23,8 +26,67 @@ def about(request):
     return HttpResponse("<h4>about</h4>")
 
 
-def personal_cabinet_page(request):
+@csrf_exempt
+def personal_cabinet_page(request, id=None):
+
+    if request.method == 'POST':
+
+        data = json.loads(request.body.decode('utf-8'))
+
+        selectedTime = data.get('selectedTime')
+        selectedMaster = data.get('selectedMaster')
+        selectedDate = data.get('selectedDate')
+        selectedMonth = data.get('currentMonth')
+        selectedYear = data.get('currentYear')
+        selectedIdSketch = data.get('sketchId')
+
+        date_string = f"{selectedMonth} {selectedDate} {selectedYear} {selectedTime}"
+        date_obj = datetime.strptime(date_string, "%m %d %Y %H:%M")
+
+        user_id = None
+        if request.user.is_authenticated:
+            user_id = request.user.user_id
+            try:
+                user = User.objects.get(user_id=user_id)
+            except Employee.DoesNotExist:
+                return JsonResponse({'result': 'error', 'message': 'Invalid user_id'})
+
+        try:
+            sketch = Sketch.objects.get(sketch_id=selectedIdSketch)
+        except Sketch.DoesNotExist:
+            return JsonResponse({'result': 'error', 'message': 'Invalid sketch ID'})
+
+        try:
+            employee = Employee.objects.get(employee_id=selectedMaster)
+        except Employee.DoesNotExist:
+            return JsonResponse({'result': 'error', 'message': 'Invalid employee ID'})
+
+
+
+        session = Session()
+        session.date = date_obj
+        session.sketch = sketch
+        session.employee = employee
+        session.user = user
+
+        session.save()
+
+
+
+        # Выполните необходимую обработку данных и подготовьте результат
+        #print(selectedDate, selectedMaster, selectedTime, selectedIdSketch)
+        return JsonResponse({'result': 'success'})
+
+    if id:
+        try:
+            sketch = Sketch.objects.get(sketch_id=id)
+            photo_url = sketch.photo.url
+            return render(request, 'main/personal_cabinet.html', {'photo_url': photo_url})
+        except Sketch.DoesNotExist:
+            pass
     return render(request, 'main/personal_cabinet.html')
+
+
 
 
 def portfolio(request):

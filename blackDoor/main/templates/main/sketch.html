@@ -29,18 +29,30 @@
                 <h2>Работы наших мастеров</h2>
                 <div class="galary">
                     {% for sketch in sketches %}
-                        <div class="card">
-                            <img class="tatto" src="{{ sketch.photo.url }}" alt="Пример татуировки">
-                            <div class="image_description">
-                                <div class="imag_title">Скетч {{ sketch.sketch_id }}</div>
-                                <button class="button-master">Хочу</button>
-                            </div>
+                    <div class="card">
+                        <img class="tatto" src="{{ sketch.photo.url }}" alt="Пример татуировки">
+                        <div class="image_description" data-sketch-id="{{ sketch.sketch_id }}">
+                            <div class="imag_title">Скетч {{ sketch.sketch_id }}</div>
+                            <button class="button-master" onclick="redirectToPersonalCabinet('{{ sketch.sketch_id }}')">
+                                Хочу
+                            </button>
                         </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
 
         </main>
+        <script>
+        function redirectToPersonalCabinet(sketchId) {
+            // Сохраняем sketchId в локальное хранилище
+            sessionStorage.setItem('sketchId', sketchId);
+
+            // Выполняем перенаправление на страницу personal_cabinet/
+            window.location.assign('/personal_cabinet/' + sketchId);
+        }
+        </script>
+
     </body>
 
 
