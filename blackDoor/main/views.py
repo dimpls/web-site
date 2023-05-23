@@ -12,10 +12,11 @@ from django.contrib.auth import views as auth_views
 from django.views import generic
 from django.urls import reverse_lazy
 from .forms import LoginForm
-from .models import Sketch, Session, Employee, User
+from .models import Sketch, Session, Employee, User, Review
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime
+from django.db.models import Exists, OuterRef
 
 
 def index(request):
@@ -26,11 +27,68 @@ def about(request):
     return HttpResponse("<h4>about</h4>")
 
 
+def feedback(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        rate = data.get('rate')
+        experience = data.get('experience')
+        selectedEmployee = data.get('selectedEmployeeName')
+        ses_id = data.get('session_id')
+
+        user_id = None
+        if request.user.is_authenticated:
+            user_id = request.user.user_id
+            try:
+                user = User.objects.get(user_id=user_id)
+            except Employee.DoesNotExist:
+                return JsonResponse({'result': 'error', 'message': 'Invalid user_id'})
+
+        try:
+            employee = Employee.objects.get(name=selectedEmployee)
+        except Employee.DoesNotExist:
+            return JsonResponse({'result': 'error', 'message': 'Invalid employee ID'})
+
+        try:
+            session = Session.objects.get(session_id=ses_id)
+        except Employee.DoesNotExist:
+            return JsonResponse({'result': 'error', 'message': 'Invalid session ID'})
+
+        review = Review()
+        review.user = user
+        review.employee = employee
+        review.body = experience
+        review.rate = rate
+        review.session = session
+        review.save()
+
+        data = {
+            'rate': rate,
+            'experience': experience,
+            'employee_id': selectedEmployee
+        }
+        print(data, 'zaebis')
+
+    user_id = request.user.user_id
+    sessions = Session.objects.filter(user_id=user_id)  # Таблица
+    reviewed_sessions = Session.objects.filter(             #объект сессий
+        Exists(Review.objects.filter(session_id=OuterRef('session_id')))
+    )
+    reviews = Review.objects.filter(session__in=reviewed_sessions)
+    for review in reviews:
+        rate = review.rate
+        print(rate)
+    #rate = Review.objects.filter(session_id=reviewed_sessions[0].session_id)
+    #rate = rate[0].rate
+    #print('rate ===', rate)
+    #for i in reviewed_sessions:
+    #    print('sesid', i.session_id)
+
+
+    return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions})
+
 @csrf_exempt
 def personal_cabinet_page(request, id=None):
-
     if request.method == 'POST':
-
         data = json.loads(request.body.decode('utf-8'))
 
         selectedTime = data.get('selectedTime')
@@ -61,8 +119,6 @@ def personal_cabinet_page(request, id=None):
         except Employee.DoesNotExist:
             return JsonResponse({'result': 'error', 'message': 'Invalid employee ID'})
 
-
-
         session = Session()
         session.date = date_obj
         session.sketch = sketch
@@ -71,22 +127,45 @@ def personal_cabinet_page(request, id=None):
 
         session.save()
 
-
-
-        # Выполните необходимую обработку данных и подготовьте результат
-        #print(selectedDate, selectedMaster, selectedTime, selectedIdSketch)
         return JsonResponse({'result': 'success'})
 
     if id:
         try:
             sketch = Sketch.objects.get(sketch_id=id)
             photo_url = sketch.photo.url
-            return render(request, 'main/personal_cabinet.html', {'photo_url': photo_url})
+            user_id = request.user.user_id
+            sessions = Session.objects.filter(user_id=user_id)
+            reviewed_sessions = Session.objects.filter(  # объект сессий
+                Exists(Review.objects.filter(session_id=OuterRef('session_id')))
+            )
+
+            return render(request, 'main/personal_cabinet.html', {'photo_url': photo_url, 'sessions': sessions, 'review': reviewed_sessions})
         except Sketch.DoesNotExist:
             pass
-    return render(request, 'main/personal_cabinet.html')
+
+    user_id = request.user.user_id
+    sessions = Session.objects.filter(user_id=user_id)
+    reviewed_sessions = Session.objects.filter(  # сессии которые уже оценены
+        Exists(Review.objects.filter(session_id=OuterRef('session_id')))
+    )
+    reviews = Review.objects.filter(session__in=reviewed_sessions)
+    for review in reviews: # оценки в каждой сессии ревью
+        rate = review.rate
+        print(rate)
+    return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions})
 
 
+def post_review(request):
+    if request.method == 'POST':
+        rate = request.POST.get('rate')  # Получение значения выбранного рейтинга
+        description = request.POST.get('description')  # Получение значения текстового поля
+
+        # Дальнейшая обработка полученных значений, например, сохранение в базе данных
+        # ...
+
+        return redirect('success')  # Перенаправление на страницу успешной отправки
+
+    return render(request, 'review_form.html')
 
 
 def portfolio(request):

@@ -63,7 +63,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('Запись на ' + selectedDate + '.' + (currentMonth + 1) + '.' + currentYear + ' в ' + selectedTime + ' к мастеру ' + selectedMaster + ' подтверждена');
   });
-
-  
-  
-});

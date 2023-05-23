@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 from django.db import models
@@ -45,7 +46,7 @@ class Session(models.Model):
     session_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    status = models.CharField(max_length=32, default='accepted')
+    status = models.CharField(max_length=32, default='In progress')
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     sketch = models.ForeignKey(Sketch, on_delete=models.CASCADE)
 
@@ -57,7 +58,9 @@ class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
     body = models.CharField(max_length=1024)
+    rate = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     class Meta:
         db_table = 'Review'
