@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8"/>
@@ -125,7 +126,7 @@
                             <div class="status-light__status-accepted"></div>
                             {% elif session.status == "cancelled" %}
                             <div class="status-light__status-cancelled"></div>
-                            {% elif session.status == "in progress" %}
+                            {% elif session.status == "In progress" %}
                             <div class="status-light__status-inProgress"></div>
                             {% endif %}
                         </td>
@@ -135,16 +136,20 @@
                                 {% if session not in review %}
                                     <button class="feedback" onclick="showForm('{{ session.employee.name }}', '{{ session.session_id }}')">Оставить отзыв</button>
                                 {% else %}
-                                    <h2>sdasda</h2>
+                                    {% for star in marks|get_value:session.session_id|stars_range %}
+                                        ⭐
+                                    {% endfor %}
                                 {% endif %}
                             {% elif session.status == "cancelled" %}
                                 {% if session not in review %}
-                                    <button class="feedback">Оставить отзыв</button>
+                                    <button class="feedback" onclick="showForm('{{ session.employee.name }}', '{{ session.session_id }}')">Оставить отзыв</button>
                                 {% else %}
-                                    <h2>sdasda</h2>
+                                    {% for star in marks|get_value:session.session_id|stars_range %}
+                                        ⭐
+                                    {% endfor %}
                                 {% endif %}
-                            {% elif session.status == "in progress" %}
-                                <button class="cancel">Отменить</button>
+                            {% elif session.status == "In progress" %}
+                                <button class="cancel" onclick="cancelSession('{{ session.session_id }}')">Отменить</button>
                             {% endif %}
                         </td>
                     </tr>
@@ -154,8 +159,6 @@
             </div>
 
         </div>
-
-        <button onclick="showForm()">Нажать</button>
 
         <div id="overlay" style="display: none;"></div>
 
@@ -209,7 +212,7 @@ document.querySelector('.calendar-submit-2').addEventListener('click', function(
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
-                showAlert(response.result);
+                location.reload();
             }
         };
         xhr.send(JSON.stringify({
@@ -218,6 +221,7 @@ document.querySelector('.calendar-submit-2').addEventListener('click', function(
             'selectedEmployeeName': selectedEmployeeName,
             'session_id': session_id
         }));
+        location.reload();
     });
 
     // Функция для получения значения CSRF-токена из cookie
@@ -240,6 +244,46 @@ function showAlert(message) {
 }
 
 
+
+</script>
+
+<script>
+    function cancelSession(sessionId) {
+    console.log(sessionId)
+    var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/cancelled/', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                showAlert(response.result);
+            }
+        };
+        xhr.send(JSON.stringify({
+            'session_id': sessionId
+        }));
+        location.reload();
+}
+
+// Функция для получения значения CSRF-токена из cookie
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+function showAlert(message) {
+    alert(message);
+}
 
 </script>
 
@@ -321,7 +365,6 @@ window.onclick = function(event) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
-                showAlert(response.result);
             }
         };
         xhr.send(JSON.stringify({
@@ -332,6 +375,7 @@ window.onclick = function(event) {
             'currentMonth': currentMonth,
             'currentYear': currentYear
         }));
+        location.reload();
     });
 
     // Функция для получения значения CSRF-токена из cookie

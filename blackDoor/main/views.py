@@ -27,6 +27,34 @@ def about(request):
     return HttpResponse("<h4>about</h4>")
 
 
+def cancelled(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            ses_id = data.get('session_id')
+            session = Session.objects.get(session_id=ses_id)
+            session.status = 'cancelled'
+            session.save()
+        except Session.DoesNotExist:
+            print('[ERROR] Cancel function error')
+
+        user_id = request.user.user_id
+        sessions = Session.objects.filter(user_id=user_id)  # Таблица
+        reviewed_sessions = Session.objects.filter(  # объект сессий
+            Exists(Review.objects.filter(session_id=OuterRef('session_id')))
+        )
+        reviews = Review.objects.filter(session__in=reviewed_sessions)
+
+        ratings = {}
+        for ses, mark in zip(reviewed_sessions, reviews):  # оценки в каждой сессии ревью
+            session_id = ses.session_id
+            rate = mark.rate
+            ratings[session_id] = rate
+
+        return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions,
+                                                              'marks': ratings})
+
+
 def feedback(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -74,17 +102,15 @@ def feedback(request):
         Exists(Review.objects.filter(session_id=OuterRef('session_id')))
     )
     reviews = Review.objects.filter(session__in=reviewed_sessions)
-    for review in reviews:
-        rate = review.rate
-        print(rate)
-    #rate = Review.objects.filter(session_id=reviewed_sessions[0].session_id)
-    #rate = rate[0].rate
-    #print('rate ===', rate)
-    #for i in reviewed_sessions:
-    #    print('sesid', i.session_id)
 
+    ratings = {}
+    for ses, mark in zip(reviewed_sessions, reviews):  # оценки в каждой сессии ревью
+        session_id = ses.session_id
+        rate = mark.rate
+        ratings[session_id] = rate
 
-    return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions})
+    return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions,
+                                                          'marks': ratings})
 
 @csrf_exempt
 def personal_cabinet_page(request, id=None):
@@ -138,8 +164,14 @@ def personal_cabinet_page(request, id=None):
             reviewed_sessions = Session.objects.filter(  # объект сессий
                 Exists(Review.objects.filter(session_id=OuterRef('session_id')))
             )
-
-            return render(request, 'main/personal_cabinet.html', {'photo_url': photo_url, 'sessions': sessions, 'review': reviewed_sessions})
+            reviews = Review.objects.filter(session__in=reviewed_sessions)
+            ratings = {}
+            for ses, mark in zip(reviewed_sessions, reviews):  # оценки в каждой сессии ревью
+                session_id = ses.session_id
+                rate = mark.rate
+                ratings[session_id] = rate
+            return render(request, 'main/personal_cabinet.html', {'photo_url': photo_url,
+                                                                  'sessions': sessions, 'review': reviewed_sessions, 'marks': ratings})
         except Sketch.DoesNotExist:
             pass
 
@@ -149,10 +181,14 @@ def personal_cabinet_page(request, id=None):
         Exists(Review.objects.filter(session_id=OuterRef('session_id')))
     )
     reviews = Review.objects.filter(session__in=reviewed_sessions)
-    for review in reviews: # оценки в каждой сессии ревью
-        rate = review.rate
-        print(rate)
-    return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions})
+    ratings = {}
+    for ses, mark in zip(reviewed_sessions, reviews): # оценки в каждой сессии ревью
+        session_id = ses.session_id
+        rate = mark.rate
+        ratings[session_id] = rate
+    print(ratings)
+    return render(request, 'main/personal_cabinet.html',
+                  {'sessions': sessions, 'review': reviewed_sessions, 'marks': ratings})
 
 
 def post_review(request):

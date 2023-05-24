@@ -30,5 +30,6 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path('add/', views.add_sketches, name='add_sketches'),
     path('feedback/', views.feedback, name='feedback'),
+    path('cancelled/', views.cancelled, name='feedback'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
