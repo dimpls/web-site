@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8"/>
@@ -58,6 +59,7 @@
                     <th>Id Клиент</th>
                     <th>Id эскиза</th>
                     <th>Оценка</th>
+                    <th>Управление сеансом</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -75,6 +77,15 @@
                     </td>
                     <td>{{ session.user_id }}</td>
                     <td>{{ session.sketch_id }}</td>
+
+                    <td>{% if session.session_id in marks.keys %}
+                            {% for star in marks|get_value:session.session_id|stars_range %}
+                                ⭐
+                            {% endfor %}
+                        {% else %}
+                            <h4>Вас еще не оценили <i class="fas fa-sad-tear" style="color: #eeff00;"></i></h4>
+                        {% endif %}
+                    </td>
 
                     <td>
                         <form method="POST" action="{% url 'acceptCancel' %}">

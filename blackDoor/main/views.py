@@ -18,6 +18,7 @@ import json
 from datetime import datetime
 from django.db.models import Exists, OuterRef
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 def index(request):
     return render(request, 'main/index.html')
@@ -201,7 +202,24 @@ def staff(request):
     sessions = Session.objects.filter(employee_id=user_id)  # Таблица
     for i in sessions:
         print(i.status, 'staff')
-    return render(request, 'main/staff.html', {'sessions': sessions})
+
+    reviews = Review.objects.filter(session_id__in=Session.objects.values_list('session_id', flat=True))
+    print(reviews)
+    for i in reviews:
+        print("ses=", i.session_id, "rate", i.rate)
+    session_rate_dict = {}
+    for review in reviews:
+        session_rate_dict[review.session_id] = review.rate
+
+    print(session_rate_dict)
+    #for ses, mark in zip(reviewed_sessions, reviews):  # оценки в каждой сессии ревью
+    #    session_id = ses.session_id
+    #    rate = mark.rate
+    #    ratings[session_id] = rate
+
+    #print(ratings)
+
+    return render(request, 'main/staff.html', {'sessions': sessions, 'marks': session_rate_dict})
 
 
 def accept_cancel(request):
@@ -226,7 +244,16 @@ def accept_cancel(request):
     sessions = Session.objects.filter(employee_id=user_id)  # Таблица
     for i in sessions:
         print(i.status, 'acc')
-    return render(request, 'main/staff.html', {'sessions': sessions})
+
+    reviews = Review.objects.filter(session_id__in=Session.objects.values_list('session_id', flat=True))
+    print(reviews)
+    for i in reviews:
+        print("ses=", i.session_id, "rate", i.rate)
+    session_rate_dict = {}
+    for review in reviews:
+        session_rate_dict[review.session_id] = review.rate
+
+    return render(request, 'main/staff.html', {'sessions': sessions, 'marks': session_rate_dict})
 
 def portfolio(request):
     employees = User.objects.filter(is_staff=True)
