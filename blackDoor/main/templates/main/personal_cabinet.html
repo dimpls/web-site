@@ -41,7 +41,6 @@
                 <h4>{{ user.date_of_birth|date:"d.m.Y" }}</h4>
             </div>
             <div class="statistic">
-                <h3>Сделано тату в нашей студии: {{ user.tattoos_made }}</h3>
                 <h4>Прислединился в {{ user.date_joined|date:"Y" }} году</h4>
             </div>
         </div>
@@ -50,7 +49,7 @@
     <div class="entry">
         <div class="entry-text">
             <h3>Хочешь записаться?</h3>
-            <h4>Выбери удобное время и день, и мы с тобой свяжемся.</h3>
+            <h4>Выбери удобное время и день, и мы с тобой свяжемся.</h4>
         </div>
     </div>
     <div class="box-calendar">
@@ -80,12 +79,12 @@
                     <label for="master">Мастер:</label>
                     <select id="master" name="master">
                         <option value="" selected></option>
-                        <option value="1">Мастер Юля</option>
-                        <option value="2">Мастер Иван</option>
-                        <option value="3">Мастер Соня</option>
-                        <option value="4">Мастер Максим</option>
-                        <option value="5">Мастер Оля</option>
-                        <option value="6">Мастер Евгений</option>
+                        <option value="15">Мастер Юля</option>
+                        <option value="16">Мастер Иван</option>
+                        <option value="17">Мастер Соня</option>
+                        <option value="18">Мастер Максим</option>
+                        <option value="19">Мастер Оля</option>
+                        <option value="20">Мастер Евгений</option>
                     </select>
                 </div>
                 <div class="calendar-sketch">
@@ -130,11 +129,11 @@
                             <div class="status-light__status-inProgress"></div>
                             {% endif %}
                         </td>
-                        <td>{{ session.employee.name }}</td>
+                        <td>{{ session.employee_id }}</td>
                         <td>{{ session.sketch.sketch_id }}</td>
                         <td>{% if session.status == "completed" %}
                                 {% if session not in review %}
-                                    <button class="feedback" onclick="showForm('{{ session.employee.name }}', '{{ session.session_id }}')">Оставить отзыв</button>
+                                    <button class="feedback" onclick="showForm('{{ session.employee_id }}', '{{ session.session_id }}')">Оставить отзыв</button>
                                 {% else %}
                                     {% for star in marks|get_value:session.session_id|stars_range %}
                                         ⭐
@@ -142,7 +141,7 @@
                                 {% endif %}
                             {% elif session.status == "cancelled" %}
                                 {% if session not in review %}
-                                    <button class="feedback" onclick="showForm('{{ session.employee.name }}', '{{ session.session_id }}')">Оставить отзыв</button>
+                                    <button class="feedback" onclick="showForm('{{ session.employee_id }}', '{{ session.session_id }}')">Оставить отзыв</button>
                                 {% else %}
                                     {% for star in marks|get_value:session.session_id|stars_range %}
                                         ⭐
@@ -350,7 +349,7 @@ window.onclick = function(event) {
         var currentDate = new Date();
         var currentMonth = currentDate.getMonth() + 1;
         var currentYear = currentDate.getFullYear();
-        console.log(currentYear);
+        console.log(selectedMaster, 111);
 
         if (selectedDate) {
             selectedDate = selectedDate.innerHTML;

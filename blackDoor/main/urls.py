@@ -30,6 +30,9 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path('add/', views.add_sketches, name='add_sketches'),
     path('feedback/', views.feedback, name='feedback'),
+    path('personal_cabinet_staff/accept_cancel/', views.accept_cancel, name='acceptCancel'),
     path('cancelled/', views.cancelled, name='feedback'),
+    path('add/', views.add_sketches, name='add'),
+    path('personal_cabinet_staff/', views.staff, name='staff'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

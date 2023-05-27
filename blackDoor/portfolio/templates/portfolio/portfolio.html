@@ -34,48 +34,15 @@
         <div class="team">
             <h2>Наша команда</h2>
             <div class="photo-team">
-                <div class="image" data-master-id="1">
-                    <img class="master" src="{% static 'main/img/master1.png' %}" alt="Мастер">
+                {% for employee in employees %}
+                <div class="image" data-master-id="{{ forloop.counter }}">
+                    <img class="master" src="{{ employee.photo.url }}" alt="Мастер">
                     <div class="image_description">
-                        <div class="imag_title">Юлия</div>
-                        <button class="button-master">показать портфолио</button>
+                        <div class="imag_title">{{ employee.first_name }}</div>
+                        <button class="button-master" onclick="sendEmail('{{ employee.username }}')">показать портфолио</button>
                     </div>
                 </div>
-                <div class="image" data-master-id="2">
-                    <img class="master" src="{% static 'main/img/master2.png' %}" alt="Мастер">
-                    <div class="image_description">
-                        <div class="imag_title">Иван</div>
-                        <button class="button-master">показать портфолио</button>
-                    </div>
-                </div>
-                <div class="image" data-master-id="3">
-                    <img class="master" src="{% static 'main/img/master3.png' %}" alt="Мастер">
-                    <div class="image_description">
-                        <div class="imag_title">Соня</div>
-                        <button class="button-master">показать портфолио</button>
-                    </div>
-                </div>
-                <div class="image" data-master-id="4">
-                    <img class="master" src="{% static 'main/img/master4.png' %}" alt="Мастер">
-                    <div class="image_description">
-                        <div class="imag_title">Максим</div>
-                        <button class="button-master">показать портфолио</button>
-                    </div>
-                </div>
-                <div class="image" data-master-id="5">
-                    <img class="master" src="{% static 'main/img/master5.png' %}" alt="Мастер">
-                    <div class="image_description">
-                        <div class="imag_title">Оля</div>
-                        <button class="button-master">показать портфолио</button>
-                    </div>
-                </div>
-                <div class="image" data-master-id="6">
-                    <img class="master" src="{% static 'main/img/master6.png' %}" alt="Мастер">
-                    <div class="image_description">
-                        <div class="imag_title">Евгений</div>
-                        <button class="button-master">показать портфолио</button>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div class="end">
                 
@@ -84,6 +51,14 @@
         
     </main>
     <body>
+
+    <script>
+    function sendEmail(username) {
+        window.location.href = '/portfolio/master/' + username + '/';
+    }
+
+    </script>
+
 
     </body>
 </html>

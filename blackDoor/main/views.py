@@ -12,12 +12,12 @@ from django.contrib.auth import views as auth_views
 from django.views import generic
 from django.urls import reverse_lazy
 from .forms import LoginForm
-from .models import Sketch, Session, Employee, User, Review
+from .models import Sketch, Session, User, Review
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime
 from django.db.models import Exists, OuterRef
-
+from django.contrib.auth import get_user_model
 
 def index(request):
     return render(request, 'main/index.html')
@@ -60,30 +60,23 @@ def feedback(request):
         data = json.loads(request.body.decode('utf-8'))
         rate = data.get('rate')
         experience = data.get('experience')
-        selectedEmployee = data.get('selectedEmployeeName')
+        selectedEmployee = data.get('selectedEmployeeName') #id работника
         ses_id = data.get('session_id')
 
         user_id = None
         if request.user.is_authenticated:
             user_id = request.user.user_id
-            try:
-                user = User.objects.get(user_id=user_id)
-            except Employee.DoesNotExist:
-                return JsonResponse({'result': 'error', 'message': 'Invalid user_id'})
+            user = User.objects.get(user_id=user_id)
 
-        try:
-            employee = Employee.objects.get(name=selectedEmployee)
-        except Employee.DoesNotExist:
-            return JsonResponse({'result': 'error', 'message': 'Invalid employee ID'})
+        employee = User.objects.get(user_id=selectedEmployee)
 
-        try:
-            session = Session.objects.get(session_id=ses_id)
-        except Employee.DoesNotExist:
-            return JsonResponse({'result': 'error', 'message': 'Invalid session ID'})
+
+        session = Session.objects.get(session_id=ses_id)
+
 
         review = Review()
         review.user = user
-        review.employee = employee
+        review.employee_id = selectedEmployee
         review.body = experience
         review.rate = rate
         review.session = session
@@ -94,7 +87,7 @@ def feedback(request):
             'experience': experience,
             'employee_id': selectedEmployee
         }
-        print(data, 'zaebis')
+
 
     user_id = request.user.user_id
     sessions = Session.objects.filter(user_id=user_id)  # Таблица
@@ -130,25 +123,22 @@ def personal_cabinet_page(request, id=None):
         user_id = None
         if request.user.is_authenticated:
             user_id = request.user.user_id
-            try:
-                user = User.objects.get(user_id=user_id)
-            except Employee.DoesNotExist:
-                return JsonResponse({'result': 'error', 'message': 'Invalid user_id'})
+
+            user = User.objects.get(user_id=user_id)
 
         try:
             sketch = Sketch.objects.get(sketch_id=selectedIdSketch)
         except Sketch.DoesNotExist:
             return JsonResponse({'result': 'error', 'message': 'Invalid sketch ID'})
 
-        try:
-            employee = Employee.objects.get(employee_id=selectedMaster)
-        except Employee.DoesNotExist:
-            return JsonResponse({'result': 'error', 'message': 'Invalid employee ID'})
+
+        employee = User.objects.get(user_id=selectedMaster)
+
 
         session = Session()
         session.date = date_obj
         session.sketch = sketch
-        session.employee = employee
+        session.employee_id = employee.user_id
         session.user = user
 
         session.save()
@@ -177,6 +167,8 @@ def personal_cabinet_page(request, id=None):
 
     user_id = request.user.user_id
     sessions = Session.objects.filter(user_id=user_id)
+    #for i in sessions:
+        #print(i.employee_id, "!!!!") #id работника
     reviewed_sessions = Session.objects.filter(  # сессии которые уже оценены
         Exists(Review.objects.filter(session_id=OuterRef('session_id')))
     )
@@ -186,7 +178,6 @@ def personal_cabinet_page(request, id=None):
         session_id = ses.session_id
         rate = mark.rate
         ratings[session_id] = rate
-    print(ratings)
     return render(request, 'main/personal_cabinet.html',
                   {'sessions': sessions, 'review': reviewed_sessions, 'marks': ratings})
 
@@ -204,8 +195,42 @@ def post_review(request):
     return render(request, 'review_form.html')
 
 
+def staff(request):
+
+    user_id = request.user.user_id
+    sessions = Session.objects.filter(employee_id=user_id)  # Таблица
+    for i in sessions:
+        print(i.status, 'staff')
+    return render(request, 'main/staff.html', {'sessions': sessions})
+
+
+def accept_cancel(request):
+    if request.method == 'POST':
+        button_value = request.POST.get('button_value')
+        values = button_value.split('|')
+        print(values)
+        session = Session.objects.get(session_id=values[1])
+        if values[0] == 'completed':
+            session.status = 'completed'
+        else:
+            session.status = 'cancelled'
+
+        try:
+            session.save()
+        except Exception as e:
+            print('[ERROR]: accept_cancel', str(e))
+
+
+
+    user_id = request.user.user_id
+    sessions = Session.objects.filter(employee_id=user_id)  # Таблица
+    for i in sessions:
+        print(i.status, 'acc')
+    return render(request, 'main/staff.html', {'sessions': sessions})
+
 def portfolio(request):
-    return render(request, 'portfolio/portfolio.html')
+    employees = User.objects.filter(is_staff=True)
+    return render(request, 'portfolio/portfolio.html', {'employees': employees})
 
 
 def sketch(request):
@@ -215,25 +240,29 @@ def sketch(request):
 
 def add_sketches(request):
     # Предположим, у вас есть список путей к фотографиям, которые вы хотите добавить
-    photo_paths = ['main/static/main/img/tatto1.png', 'main/static/main/img/tatto2.png', 'main/static/main/img/tatto3.png', 'main/static/main/img/tatto4.png', 'main/static/main/img/tatto5.png',
-                   'main/static/main/img/tatto6.png', 'main/static/main/img/tatto7.png', 'main/static/main/img/tatto8.png', 'main/static/main/img/tatto9.png', 'main/static/main/img/tatto10.png',
-                   'main/static/main/img/tatto11.png', 'main/static/main/img/tatto12.png', 'main/static/main/img/tatto13.png', 'main/static/main/img/tatto14.png', 'main/static/main/img/tatto15.png',
-                   'main/static/main/img/tatto16.png', 'main/static/main/img/tatto17.png']
+    photo_paths = 'main/static/main/img/master6.png'
 
     tmp = 1000.0
-    k = 1
-    for path in photo_paths:
-        # Создаем новый объект Sketch и сохраняем фотографию
-        sketch = Sketch()
-        sketch.price = 10
-        sketch.photo.save('tatto' + str(k) + '.png', open(path, 'rb'))
-        # Заполняем поле 'price' текущим значением price_temp
-        #sketch.price = 10.0
-        sketch.price = tmp
-        tmp += 1200.0
-        k += 1
-        # Сохраняем объект Sketch в базу данных
-        sketch.save()
+    k = 6
+
+    User = get_user_model()
+
+    master = User()
+    master.first_name = 'Евгений'
+    master.last_name = 'Морозов'
+    master.email = 'Evg123456@gmail.com'
+    master.username = 'Evg123456'
+    master.is_staff = True
+    master.set_password('Evg123456')
+    # Заполняем остальные поля пользователя, если необходимо
+    master.date_of_birth = '2002-11-20'
+    master.phone_number = '79113345563'
+    master.tattoos_made = 0
+    # Сохраняем фотографию мастера
+    master.photo.save('master' + str(k) + '.png', open(photo_paths, 'rb'))
+    # Заполняем поле 'price' текущим значением tmp
+    # Сохраняем объект User в базе данных
+    master.save()
 
 
 
@@ -249,6 +278,7 @@ class RegisterView(generic.CreateView):
     form_class = RegisterForm
     template_name = 'main/register.html'
     success_url = reverse_lazy('login')
+
 
 
 class LoginView(auth_views.LoginView):

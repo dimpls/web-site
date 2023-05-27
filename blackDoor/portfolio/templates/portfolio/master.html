@@ -30,20 +30,20 @@
     </header>
     <main>
         <div class="photo-master">
-            {% if master.name == "Юлия" %}
-                <img class="photo-Ylya" src="{% static 'portfolio/img/MasterYlya.png' %}" alt="Мастер Юлия">
-            {% elif master.name == "Иван" %}
-                <img class="photo-Ylya" src="{% static 'portfolio/img/MasterIvan.jpg' %}" alt="Мастер Иван">
-            {% elif master.name == "Соня" %}
-                <img class="photo-Ylya" src="{% static 'portfolio/img/MasterSonya.jpg' %}" alt="Мастер Соня">
-            {% elif master.name == "Максим" %}
-                <img class="photo-Ylya" src="{% static 'portfolio/img/MasterMax.jpg' %}" alt="Мастер Максим">
-            {% elif master.name == "Оля" %}
-                <img class="photo-Ylya" src="{% static 'portfolio/img/MasterOlya.jpg' %}" alt="Мастер Оля">
-            {% elif master.name == "Евгений" %}
-                <img class="photo-Ylya" src="{% static 'portfolio/img/MasterEvgeniy.jpg' %}" alt="Мастер Евгений">
+            {% if master.first_name == "Юлия" %}
+                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Юлия">
+            {% elif master.first_name == "Иван" %}
+                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Иван">
+            {% elif master.first_name == "Соня" %}
+                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Соня">
+            {% elif master.first_name == "Максим" %}
+                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Максим">
+            {% elif master.first_name == "Оля" %}
+                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Оля">
+            {% elif master.first_name == "Евгений" %}
+                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Евгений">
             {% endif %}
-            <h2>Мастер {{ master.name }}</h2>
+            <h2>Мастер {{ master.first_name }}</h2>
             <h3>ПОРТФОЛИО</h3>
         </div>
         <div class="info-master">

@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/staff.css' %}"/>
+<link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC"/>
+<link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<header>
+    <script src="{% static 'main/script/script.js' %}"></script>
+    <div class="header">
+        <div class="header-title">
+            <a href="{% url 'home' %}">
+                <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
+            </a>
+            <a href="{% url 'home' %}">
+                <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
+            </a>
+            <div class="header-buttons">
+                <span><a href="{% url 'portfolio' %}">Команда</a></span>
+                <span><a href="#">Портфолио</a></span>
+
+            </div>
+            <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
+        </div>
+    </div>
+</header>
+<main class="main-cont">
+    <div class="personal-info">
+        <div class="avatar">
+            <div class="icon">
+                <img class="avatar-img" src="{% static 'main/img/avatar.png' %}" alt="Аватарка">
+                <img class="pinion" src="{% static 'main/img/pinion.png' %}" alt="шестеренка">
+            </div>
+        </div>
+        <div class="info">
+            <div class="name_bd">
+                <h3>{{ user.get_full_name }}</h3>
+                <h4>{{ user.date_of_birth|date:"d.m.Y" }}</h4>
+            </div>
+            <div class="statistic">
+                <h3></h3>
+                <h4>Прислединился в {{ user.date_joined|date:"Y" }} году</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="end">
+        <div class="table-end">
+            <table>
+                <thead>
+                <tr>
+                    <th>Session ID</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                    <th>Id Клиент</th>
+                    <th>Id эскиза</th>
+                    <th>Оценка</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for session in sessions %}
+                <tr>
+                    <td>{{ session.session_id }}</td>
+                    <td>{{ session.date }}</td>
+                    <td>{% if session.status == "completed" %}
+                        <div class="status-light__status-accepted"></div>
+                        {% elif session.status == "cancelled" %}
+                        <div class="status-light__status-cancelled"></div>
+                        {% elif session.status == "In progress" %}
+                        <div class="status-light__status-inProgress"></div>
+                        {% endif %}
+                    </td>
+                    <td>{{ session.user_id }}</td>
+                    <td>{{ session.sketch_id }}</td>
+
+                    <td>
+                        <form method="POST" action="{% url 'acceptCancel' %}">
+                            {% csrf_token %}
+                            {% if session.status == "In progress" %}
+                                <button class="btn-acc-can" type="submit" name="button_value" value="completed|{{ session.session_id }}"><i class="fas fa-plus fa-lg" style="color: #00ff11; font-size:20px;"></i></button>
+                                <button class="btn-acc-can" type="submit" name="button_value" value="cancelled|{{ session.session_id }}"><i class="fas fa-minus fa-lg" style="color: #ff0000; font-size:20px;"></i></i></button>
+                            {% else %}
+                                <h4>Сеанс уже завершен <i class="fas fa-smile-wink" style="color: #f5e000;"></i></h4>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</main>
