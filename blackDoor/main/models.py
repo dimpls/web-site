@@ -11,7 +11,7 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=32, null=True, blank=True)
     date_of_birth = models.DateField(null=False, blank=False)
     tattoos_made = models.PositiveIntegerField(default=0, blank=True)
-    photo = models.ImageField(upload_to='user_photos', default='default_image.png', blank=True)
+    photo = models.ImageField(upload_to='user_photos', default='user_photos/default_image.png', blank=True)
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"

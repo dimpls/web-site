@@ -1,0 +1,289 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/admin.css' %}"/>
+<link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC"/>
+<link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<header>
+    <script src="{% static 'main/script/script.js' %}"></script>
+    <div class="header">
+        <div class="header-title">
+            <a href="{% url 'home' %}">
+                <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
+            </a>
+            <a href="{% url 'home' %}">
+                <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
+            </a>
+            <div class="header-buttons">
+                <span><a href="{% url 'portfolio' %}">Команда</a></span>
+                <span><a href="#">Портфолио</a></span>
+
+            </div>
+            <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
+        </div>
+    </div>
+</header>
+<main class="main-cont">
+    <div class="personal-info">
+        <div class="avatar">
+            <div class="icon">
+                <img class="avatar-img" src="{% static 'main/img/avatar.png' %}" alt="Аватарка">
+                <img class="pinion" src="{% static 'main/img/pinion.png' %}" alt="шестеренка">
+            </div>
+        </div>
+        <div class="info">
+            <div class="name_bd">
+                <h3>{{ user.get_full_name }}</h3>
+                <h4>{{ user.date_of_birth|date:"d.m.Y" }}</h4>
+            </div>
+            <div class="statistic">
+                <h3></h3>
+                <h4>Прислединился в {{ user.date_joined|date:"Y" }} году</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="end">
+        <h2>Таблица всех пользователей</h2>
+        <div class="search">
+            <div class="group">
+                <input type="text" id="search-input1">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Поиск</label>
+            </div>
+        </div>
+
+        <div class="table-end">
+            <table>
+                <thead>
+                <tr>
+                    <th>user ID</th>
+                    <th>ФИО</th>
+                    <th>Никнейм</th>
+                    <th>Почта</th>
+                    <th>Номер телефона</th>
+                    <th>Работник</th>
+                    <th>Дата присоединения</th>
+                    <th>Нанять/уволить работника</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.user_id }}</td>
+                    <td>{{ user.get_full_name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone_number }}</td>
+                    <td>{% if user.is_staff %}
+                        <div class="status-light__status-accepted"></div>
+                        {% else %}
+                        <div class="status-light__status-cancelled"></div>
+                        {% endif %}
+                    </td>
+                    <td>{{ user.date_joined|date:"d.m.Y" }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'acceptstaff' %}">
+                            {% csrf_token %}
+                            {% if user.is_staff %}
+                            <button class="btn-acc-can" type="submit" name="button_value"
+                                    value="staff|{{ user.user_id }}"><i class="fas fa-minus fa-lg"
+                                                                        style="color: #ff0000; font-size:20px;"></i></i>
+                            </button>
+                            {% else %}
+                            <button class="btn-acc-can" type="submit" name="button_value"
+                                    value="user|{{ user.user_id }}"><i class="fas fa-plus fa-lg"
+                                                                       style="color: #00ff11; font-size:20px;"></i>
+                            </button>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+        <h2>Таблица всех сессий</h2>
+
+        <div class="search">
+            <div class="group">
+                <input type="text" id="search-input2">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Поиск</label>
+            </div>
+        </div>
+
+        <div class="table-second">
+            <table>
+                <thead>
+                <tr>
+                    <th>Session ID</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                    <th>Id Клиент</th>
+                    <th>Id работника</th>
+                    <th>Id эскиза</th>
+                    <th>Оценка пользователя</th>
+                    <th>Управление сеансом</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for session in sessions %}
+                <tr>
+                    <td>{{ session.session_id }}</td>
+                    <td>{{ session.date }}</td>
+                    <td>
+                        {% if session.status == "completed" %}
+                        <div class="status-light__status-accepted"></div>
+                        {% elif session.status == "cancelled" %}
+                        <div class="status-light__status-cancelled"></div>
+                        {% elif session.status == "In progress" %}
+                        <div class="status-light__status-inProgress"></div>
+                        {% endif %}
+                    </td>
+                    <td>{{ session.user_id }}</td>
+                    <td>{{ session.employee_id }}</td>
+                    <td>{{ session.sketch_id }}</td>
+                    <td>{% if session.session_id in marks.keys %}
+                        {% for star in marks|get_value:session.session_id|stars_range %}
+                        ⭐
+                        {% endfor %}
+                        {% else %}
+                        <h4>Сеанс еще не оценили <i class="fas fa-sad-tear" style="color: #eeff00;"></i></h4>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'InprogressSession' %}">
+                            {% csrf_token %}
+                            {% if session.status == 'completed' %}
+                            <button class="btn-acc-can" type="submit" name="button_value"
+                                    value="completed|{{ session.session_id }}"><i class="fas fa-plus fa-lg"
+                                                                                  style="color: #00ff11; font-size:20px;"></i>
+                            </button>
+                            {% elif session.status == 'cancelled' %}
+                            <button class="btn-acc-can" type="submit" name="button_value"
+                                    value="cancelled|{{ session.session_id }}"><i class="fas fa-plus fa-lg"
+                                                                                  style="color: #00ff11; font-size:20px;"></i>
+                            </button>
+                            {% else %}
+                            <h4>Сеанс в процессе <i class="fas fa-grin-beam" style="color: #fbff00;"></i></h4>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="back">
+
+        </div>
+
+    </div>
+    <script>
+    const searchInput1 = document.getElementById('search-input1');
+    const tableBody1 = document.querySelector('.table-end table tbody');
+    const rows1 = tableBody1.querySelectorAll('tr');
+    const noResultsMessage1 = document.createElement('tr');
+    const noResultsCell1 = document.createElement('td');
+    noResultsCell1.setAttribute('colspan', '7');
+    noResultsCell1.textContent = 'Ничего не найдено';
+
+    noResultsMessage1.appendChild(noResultsCell1);
+
+    searchInput1.addEventListener('keyup', function(event) {
+        const query = event.target.value.toLowerCase().trim();
+        let foundMatches = false;
+
+        rows1.forEach(function(row) {
+            const columns = row.getElementsByTagName('td');
+            let rowMatch = false;
+
+            for (let i = 0; i < columns.length; i++) {
+                const columnText = columns[i].textContent.toLowerCase();
+
+                if (columnText.includes(query)) {
+                    rowMatch = true;
+                    foundMatches = true;
+                    break;
+                }
+            }
+
+            row.style.display = rowMatch ? '' : 'none';
+        });
+
+        if (foundMatches) {
+            noResultsMessage1.style.display = 'none';
+        } else {
+            noResultsMessage1.style.display = '';
+        }
+
+        // Вставляем или удаляем строку с сообщением в зависимости от результатов поиска
+        if (!foundMatches && !tableBody1.contains(noResultsMessage1)) {
+            tableBody1.appendChild(noResultsMessage1);
+        } else if (foundMatches && tableBody1.contains(noResultsMessage1)) {
+            tableBody1.removeChild(noResultsMessage1);
+        }
+    });
+
+    const searchInput2 = document.getElementById('search-input2');
+    const tableBody2 = document.querySelector('.table-second table tbody');
+    const rows2 = tableBody2.querySelectorAll('tr');
+    const noResultsMessage2 = document.createElement('tr');
+    const noResultsCell2 = document.createElement('td');
+    noResultsCell2.setAttribute('colspan', '7');
+    noResultsCell2.textContent = 'Ничего не найдено';
+
+    noResultsMessage2.appendChild(noResultsCell2);
+
+    searchInput2.addEventListener('keyup', function(event) {
+        const query = event.target.value.toLowerCase().trim();
+        let foundMatches = false;
+
+        rows2.forEach(function(row) {
+            const columns = row.getElementsByTagName('td');
+            let rowMatch = false;
+
+            for (let i = 0; i < columns.length; i++) {
+                const columnText = columns[i].textContent.toLowerCase();
+
+                if (columnText.includes(query)) {
+                    rowMatch = true;
+                    foundMatches = true;
+                    break;
+                }
+            }
+
+            row.style.display = rowMatch ? '' : 'none';
+        });
+
+        if (foundMatches) {
+            noResultsMessage2.style.display = 'none';
+        } else {
+            noResultsMessage2.style.display = '';
+        }
+
+        // Вставляем или удаляем строку с сообщением в зависимости от результатов поиска
+        if (!foundMatches && !tableBody2.contains(noResultsMessage2)) {
+            tableBody2.appendChild(noResultsMessage2);
+        } else if (foundMatches && tableBody2.contains(noResultsMessage2)) {
+            tableBody2.removeChild(noResultsMessage2);
+        }
+    });
+
+    </script>
+
+
+</main>

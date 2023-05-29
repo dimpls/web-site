@@ -1,83 +1,85 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'portfolio/css/styleMaster.css' %}"/>
-    <link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC" />
-    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="{% static 'portfolio/css/styleMaster.css' %}"/>
+<link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC"/>
+<link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
 
-    <header>
-        <div class="header">
-            <div class="header-title">
-                <a href="{% url 'home' %}">
+<header>
+    <div class="header">
+        <div class="header-title">
+            <a href="{% url 'home' %}">
                 <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
-                </a>
-                <a href="{% url 'home' %}">
+            </a>
+            <a href="{% url 'home' %}">
                 <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
-                </a>
-                <div class="header-buttons">
+            </a>
+            <div class="header-buttons">
 
-                    <span><a href="{% url 'portfolio' %}">Команда</a></span>
-                    <span><a href="#">Портфолио</a></span>
+                <span><a href="{% url 'portfolio' %}">Команда</a></span>
+                <span><a href="#">Портфолио</a></span>
 
+            </div>
+            <a href="{% url 'personal_cabinet' %}">
+                <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
+            </a>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="photo-master">
+        <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Евгений">
+        <h2>Мастер {{ master.first_name }}</h2>
+        <h3>ПОРТФОЛИО</h3>
+    </div>
+    <div class="info-master">
+        <div class="description">
+            <div class="text">
+                <h2>Художник, тату-мастер, учитель и наставник</h2>
+                <div class="info-text">
+                    <h3 class="h3-1">В художественной татуировке 15 лет.</h3>
+                    <h3 class="h3-2">Работаю по вашим и своим эскизам, интересны как масштабные работы, так и
+                        миниатюрные.</h3>
+                    <h3 class="h3-3">Работаю с разными цветами, не ограничиваю себя в стиле.</h3>
                 </div>
-                <a href="{% url 'personal_cabinet' %}">
-                    <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
-                </a>
-            </div>
-        </div>
-    </header>
-    <main>
-        <div class="photo-master">
-            {% if master.first_name == "Юлия" %}
-                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Юлия">
-            {% elif master.first_name == "Иван" %}
-                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Иван">
-            {% elif master.first_name == "Соня" %}
-                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Соня">
-            {% elif master.first_name == "Максим" %}
-                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Максим">
-            {% elif master.first_name == "Оля" %}
-                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Оля">
-            {% elif master.first_name == "Евгений" %}
-                <img class="photo-Ylya" src="{{ master.photo.url }}" alt="Мастер Евгений">
-            {% endif %}
-            <h2>Мастер {{ master.first_name }}</h2>
-            <h3>ПОРТФОЛИО</h3>
-        </div>
-        <div class="info-master">
-            <div class="description">
-                <div class="text">
-                    <h2>Художник, тату-мастер, учитель и наставник</h2>
-                    <div class="info-text">
-                        <h3 class="h3-1">В художественной татуировке 15 лет.</h3>
-                        <h3 class="h3-2">Работаю по вашим и своим эскизам, интересны как масштабные работы, так и миниатюрные.</h3>
-                        <h3 class="h3-3">Работаю с разными цветами, не ограничиваю себя в стиле.</h3>
-                    </div>
-                    <button class="button-signup">Записаться на сеанс</button>
-                </div>
+                {% if user.is_authenticated %}
 
-                <img class="sketch1" src="{% static 'portfolio/img/sketch1.png' %}" alt="Скетч">
-            </div>
-        </div>
-        <div class="sketches">
-            <div class="sketch-type1">
-                <img class="sketch-type1-1" src="{% static 'portfolio/img/sketch2.png' %}" alt="Скетч">
-                <img class="sketch-type1-2" src="{% static 'portfolio/img/sketch3.png' %}" alt="Скетч">
-            </div>
-            <div class="sketch-type2">
-                <img class="sketch-type2-1" src="{% static 'portfolio/img/sketch4.png' %}" alt="Скетч">
-                <img class="sketch-type2-2" src="{% static 'portfolio/img/sketch5.png' %}" alt="Скетч">
-                <img class="sketch-type2-3" src="{% static 'portfolio/img/sketch6.png' %}" alt="Скетч">
-                <img class="sketch-type2-4" src="{% static 'portfolio/img/sketch7.png' %}" alt="Скетч">
-                <img class="sketch-type2-5" src="{% static 'portfolio/img/sketch8.png' %}" alt="Скетч">
-                <img class="sketch-type2-6" src="{% static 'portfolio/img/sketch9.png' %}" alt="Скетч">
-            </div>
-            
-        </div>
-    </main>
-    <body>
+                {% if not user.is_staff %}
+                    <button class="button-signup" onclick="sendUser()">Записаться на сеанс</button>
 
-    </body>
+                {% endif %}
+                {% endif %}
+
+            </div>
+
+            <img class="sketch1" src="{% static 'portfolio/img/sketch1.png' %}" alt="Скетч">
+        </div>
+    </div>
+    <div class="sketches">
+        <div class="sketch-type1">
+            <img class="sketch-type1-1" src="{% static 'portfolio/img/sketch2.png' %}" alt="Скетч">
+            <img class="sketch-type1-2" src="{% static 'portfolio/img/sketch3.png' %}" alt="Скетч">
+        </div>
+        <div class="sketch-type2">
+            <img class="sketch-type2-1" src="{% static 'portfolio/img/sketch4.png' %}" alt="Скетч">
+            <img class="sketch-type2-2" src="{% static 'portfolio/img/sketch5.png' %}" alt="Скетч">
+            <img class="sketch-type2-3" src="{% static 'portfolio/img/sketch6.png' %}" alt="Скетч">
+            <img class="sketch-type2-4" src="{% static 'portfolio/img/sketch7.png' %}" alt="Скетч">
+            <img class="sketch-type2-5" src="{% static 'portfolio/img/sketch8.png' %}" alt="Скетч">
+            <img class="sketch-type2-6" src="{% static 'portfolio/img/sketch9.png' %}" alt="Скетч">
+        </div>
+
+    </div>
+</main>
+<body>
+<script>
+
+            function sendUser() {
+                window.location.href = /personal_cabinet/;
+            }
+
+</script>
+</body>
 </html>

@@ -21,7 +21,8 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 
 def index(request):
-    return render(request, 'main/index.html')
+    employees = User.objects.filter(is_staff=True)
+    return render(request, 'main/index.html', {'employees': employees})
 
 
 def about(request):
@@ -52,8 +53,10 @@ def cancelled(request):
             rate = mark.rate
             ratings[session_id] = rate
 
+        masters = User.objects.filter(is_staff=True)
+
         return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions,
-                                                              'marks': ratings})
+                                                              'marks': ratings, 'masters': masters})
 
 
 def feedback(request):
@@ -103,8 +106,10 @@ def feedback(request):
         rate = mark.rate
         ratings[session_id] = rate
 
+    masters = User.objects.filter(is_staff=True)
+
     return render(request, 'main/personal_cabinet.html', {'sessions': sessions, 'review': reviewed_sessions,
-                                                          'marks': ratings})
+                                                          'marks': ratings, 'masters': masters})
 
 @csrf_exempt
 def personal_cabinet_page(request, id=None):
@@ -151,36 +156,56 @@ def personal_cabinet_page(request, id=None):
             sketch = Sketch.objects.get(sketch_id=id)
             photo_url = sketch.photo.url
             user_id = request.user.user_id
-            sessions = Session.objects.filter(user_id=user_id)
+            sessions = Session.objects.filter(user_id=user_id).order_by('session_id')
             reviewed_sessions = Session.objects.filter(  # объект сессий
                 Exists(Review.objects.filter(session_id=OuterRef('session_id')))
             )
             reviews = Review.objects.filter(session__in=reviewed_sessions)
+            session_rate_dict = {}
+            for review in reviews:
+                session_rate_dict[review.session_id] = review.rate
             ratings = {}
             for ses, mark in zip(reviewed_sessions, reviews):  # оценки в каждой сессии ревью
                 session_id = ses.session_id
                 rate = mark.rate
                 ratings[session_id] = rate
+
+            masters = User.objects.filter(is_staff=True)
+            #print(ratings, 'if id') тут не работает
             return render(request, 'main/personal_cabinet.html', {'photo_url': photo_url,
-                                                                  'sessions': sessions, 'review': reviewed_sessions, 'marks': ratings})
+                                                                  'sessions': sessions, 'review': reviewed_sessions,
+                                                                  'marks': session_rate_dict, 'masters': masters})
         except Sketch.DoesNotExist:
             pass
 
+    masters = User.objects.filter(is_staff=True)
+
+
     user_id = request.user.user_id
-    sessions = Session.objects.filter(user_id=user_id)
-    #for i in sessions:
-        #print(i.employee_id, "!!!!") #id работника
+    sessions = Session.objects.filter(user_id=user_id).order_by('session_id')
+
+    reviews = Review.objects.filter(session_id__in=Session.objects.values_list('session_id', flat=True))
+
+    session_rate_dict = {}
+    for review in reviews:
+        session_rate_dict[review.session_id] = review.rate
+
+
     reviewed_sessions = Session.objects.filter(  # сессии которые уже оценены
         Exists(Review.objects.filter(session_id=OuterRef('session_id')))
     )
+
     reviews = Review.objects.filter(session__in=reviewed_sessions)
     ratings = {}
     for ses, mark in zip(reviewed_sessions, reviews): # оценки в каждой сессии ревью
+
         session_id = ses.session_id
         rate = mark.rate
         ratings[session_id] = rate
+
+    #print(ratings, 'последний ренер')
     return render(request, 'main/personal_cabinet.html',
-                  {'sessions': sessions, 'review': reviewed_sessions, 'marks': ratings})
+                  {'sessions': sessions, 'review': reviewed_sessions, 'marks':  session_rate_dict, 'masters': masters})
 
 
 def post_review(request):
@@ -200,24 +225,15 @@ def staff(request):
 
     user_id = request.user.user_id
     sessions = Session.objects.filter(employee_id=user_id)  # Таблица
-    for i in sessions:
-        print(i.status, 'staff')
+
 
     reviews = Review.objects.filter(session_id__in=Session.objects.values_list('session_id', flat=True))
-    print(reviews)
-    for i in reviews:
-        print("ses=", i.session_id, "rate", i.rate)
+
     session_rate_dict = {}
     for review in reviews:
         session_rate_dict[review.session_id] = review.rate
 
-    print(session_rate_dict)
-    #for ses, mark in zip(reviewed_sessions, reviews):  # оценки в каждой сессии ревью
-    #    session_id = ses.session_id
-    #    rate = mark.rate
-    #    ratings[session_id] = rate
 
-    #print(ratings)
 
     return render(request, 'main/staff.html', {'sessions': sessions, 'marks': session_rate_dict})
 
@@ -226,7 +242,7 @@ def accept_cancel(request):
     if request.method == 'POST':
         button_value = request.POST.get('button_value')
         values = button_value.split('|')
-        print(values)
+
         session = Session.objects.get(session_id=values[1])
         if values[0] == 'completed':
             session.status = 'completed'
@@ -242,13 +258,10 @@ def accept_cancel(request):
 
     user_id = request.user.user_id
     sessions = Session.objects.filter(employee_id=user_id)  # Таблица
-    for i in sessions:
-        print(i.status, 'acc')
+
 
     reviews = Review.objects.filter(session_id__in=Session.objects.values_list('session_id', flat=True))
-    print(reviews)
-    for i in reviews:
-        print("ses=", i.session_id, "rate", i.rate)
+
     session_rate_dict = {}
     for review in reviews:
         session_rate_dict[review.session_id] = review.rate
@@ -316,3 +329,72 @@ class LoginView(auth_views.LoginView):
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+def admin(request):
+    users = User.objects.all().order_by('user_id')
+    sessions = Session.objects.all().order_by('session_id')
+
+    reviews = Review.objects.filter(session_id__in=Session.objects.values_list('session_id', flat=True)).order_by('review_id')
+
+
+    session_rate_dict = {}
+    for review in reviews:
+        session_rate_dict[review.session_id] = review.rate
+
+    return render(request, 'main/admin.html', {'users': users, 'sessions': sessions, 'marks': session_rate_dict})
+
+def acceptstaff(request):
+    if request.method == 'POST':
+        button_value = request.POST.get('button_value')
+        values = button_value.split('|')
+
+        user = User.objects.get(user_id=values[1])
+        if values[0] == 'staff':
+            sessions = Session.objects.filter(employee_id=values[1])
+            for session in sessions:
+                if session.status == 'In progress':
+                    session.status = 'cancelled'
+            user.is_staff = False
+
+            for session in sessions:
+                session.save()
+
+        else:
+            sessions = Session.objects.filter(user_id=values[1])
+            for session in sessions:
+                if session.status == 'In progress':
+                    session.status = 'cancelled'
+            user.is_staff = True
+
+            for session in sessions:
+                session.save()
+
+        try:
+            user.save()
+        except Exception as e:
+            print('[ERROR]: acceptstaff', str(e))
+
+    users = User.objects.all().order_by('user_id')
+    return render(request, 'main/admin.html', {'users': users})
+
+
+def InprogressSession(request):
+    if request.method == 'POST':
+        button_value = request.POST.get('button_value')
+        values = button_value.split('|')
+        session = Session.objects.get(session_id=values[1])
+        session.status = 'In progress'
+        session.save()
+
+
+
+    users = User.objects.all().order_by('user_id')
+    sessions = Session.objects.all().order_by('session_id')
+
+    reviews = Review.objects.filter(session_id__in=Session.objects.values_list('session_id', flat=True)).order_by('review_id')
+
+    session_rate_dict = {}
+    for review in reviews:
+        session_rate_dict[review.session_id] = review.rate
+
+    return render(request, 'main/admin.html', {'users': users, 'sessions': sessions, 'marks': session_rate_dict})

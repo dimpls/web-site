@@ -172,28 +172,30 @@ html {
     background-color: #1E1E1E;
 }
 
-
-
-.status-light__status-accepted {
-    /* Background color */
-    background-color: #16a34a;
-
-    /* Rounded border */
-    border-radius: 9999px;
-
-    /* Size */
-    height: 0.7rem;
-    width: 0.7rem;
-
-    margin-left: auto;
-    margin-right: auto;
+.end {
+    width: auto;
+    height: auto;
+    background-color: #1E1E1E;
 }
 
 .table-end {
-    padding-top: 50px;
     display: flex;
     justify-content: center;
+    max-height: 500px; /* Установите желаемую высоту контейнера */
+    overflow-y: scroll; /* Отображать полосу прокрутки всегда */
+    scrollbar-width: thin; /* Толщина полосы прокрутки */
+    scrollbar-color: transparent transparent;
 }
+
+.table-end::-webkit-scrollbar { width: 6px;}
+
+.table-end::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.table-end::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
 
 table {
     width: 1000px;
@@ -218,10 +220,109 @@ tr {
     background-color: #292929;
 }
 
-.end {
-    width: auto;
-    height: auto;
+.status-light__status-accepted {
+    /* Background color */
+    background-color: #16a34a;
+
+    /* Rounded border */
+    border-radius: 9999px;
+
+    /* Size */
+    height: 0.7rem;
+    width: 0.7rem;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.status-light__status-cancelled {
+    /* Background color */
+    background-color: #FF0000;
+
+    /* Rounded border */
+    border-radius: 9999px;
+
+    /* Size */
+    height: 0.7rem;
+    width: 0.7rem;
+
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.search {
     background-color: #1E1E1E;
+    display: flex;
+    justify-content: center;
+    padding-left: 680px;
+}
+
+.group{
+    position:relative;
+}
+input{
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:300px;
+    border:none;
+    border-bottom:1px solid #757575;
+}
+input:focus{
+     outline:none;
+}
+
+
+label{
+    color:#999;
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+
+  /* active state */
+input:focus ~ label, input:valid ~ label{
+    top:-20px;
+    font-size:18px;
+    color:white;
+}
+
+.back {
+    width: 100%;
+    height: 150px;
+    background-color: #1E1E1E;
+}
+
+.table-second {
+    display: flex;
+    justify-content: center;
+    max-height: 500px; /* Установите желаемую высоту контейнера */
+    overflow-y: scroll; /* Отображать полосу прокрутки всегда */
+    scrollbar-width: thin; /* Толщина полосы прокрутки */
+    scrollbar-color: transparent transparent;
+
+}
+
+.status-light__status-accepted {
+    /* Background color */
+    background-color: #16a34a;
+
+    /* Rounded border */
+    border-radius: 9999px;
+
+    /* Size */
+    height: 0.7rem;
+    width: 0.7rem;
+
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .status-light__status-cancelled {
@@ -255,18 +356,19 @@ tr {
     margin-right: auto;
 }
 
-.btn-acc-can {
-    width: 25px;
-    height: 25px;
-    border-radius:9px;
-}
+h2 {
+    color: #FFF;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 54px;
 
-.btn-acc-can {
-  box-sizing: content-box;
-}
+    text-align: center;
+    letter-spacing: 0.8384px;
+    text-decoration: none;
+    margin: 0;
+    padding-top: 25px;
+    padding-bottom: 50px;
 
-.back {
-    width: 100%;
-    height: 150px;
-    background-color: #1E1E1E;
 }

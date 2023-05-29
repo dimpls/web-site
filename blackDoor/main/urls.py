@@ -34,5 +34,8 @@ urlpatterns = [
     path('cancelled/', views.cancelled, name='feedback'),
     path('add/', views.add_sketches, name='add'),
     path('personal_cabinet_staff/', views.staff, name='staff'),
+    path('personal_cabinet_admin/', views.admin, name='admin'),
+    path('personal_cabinet_admin/accept_add', views.acceptstaff, name='acceptstaff'),
+    path('personal_cabinet_admin/inProgress', views.InprogressSession, name='InprogressSession'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

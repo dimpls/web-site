@@ -20,7 +20,7 @@
             </a>
             <div class="header-buttons">
                 <span><a href="{% url 'portfolio' %}">Команда</a></span>
-                <span><a href="#">Портфолио</a></span>
+                <span><a href="{% url 'sketch' %}">Портфолио</a></span>
 
             </div>
             <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
@@ -79,12 +79,9 @@
                     <label for="master">Мастер:</label>
                     <select id="master" name="master">
                         <option value="" selected></option>
-                        <option value="15">Мастер Юля</option>
-                        <option value="16">Мастер Иван</option>
-                        <option value="17">Мастер Соня</option>
-                        <option value="18">Мастер Максим</option>
-                        <option value="19">Мастер Оля</option>
-                        <option value="20">Мастер Евгений</option>
+                        {% for master in masters %}
+                        <option value="{{ master.user_id }}">{{ master.first_name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="calendar-sketch">
@@ -132,23 +129,29 @@
                         <td>{{ session.employee_id }}</td>
                         <td>{{ session.sketch.sketch_id }}</td>
                         <td>{% if session.status == "completed" %}
-                                {% if session not in review %}
-                                    <button class="feedback" onclick="showForm('{{ session.employee_id }}', '{{ session.session_id }}')">Оставить отзыв</button>
-                                {% else %}
-                                    {% for star in marks|get_value:session.session_id|stars_range %}
-                                        ⭐
-                                    {% endfor %}
-                                {% endif %}
+                            {% if session not in review %}
+                            <button class="feedback"
+                                    onclick="showForm('{{ session.employee_id }}', '{{ session.session_id }}')">Оставить
+                                отзыв
+                            </button>
+                            {% else %}
+                            {% for star in marks|get_value:session.session_id|stars_range %}
+                            ⭐
+                            {% endfor %}
+                            {% endif %}
                             {% elif session.status == "cancelled" %}
-                                {% if session not in review %}
-                                    <button class="feedback" onclick="showForm('{{ session.employee_id }}', '{{ session.session_id }}')">Оставить отзыв</button>
-                                {% else %}
-                                    {% for star in marks|get_value:session.session_id|stars_range %}
-                                        ⭐
-                                    {% endfor %}
-                                {% endif %}
+                            {% if session not in review %}
+                            <button class="feedback"
+                                    onclick="showForm('{{ session.employee_id }}', '{{ session.session_id }}')">Оставить
+                                отзыв
+                            </button>
+                            {% else %}
+                            {% for star in marks|get_value:session.session_id|stars_range %}
+                            ⭐
+                            {% endfor %}
+                            {% endif %}
                             {% elif session.status == "In progress" %}
-                                <button class="cancel" onclick="cancelSession('{{ session.session_id }}')">Отменить</button>
+                            <button class="cancel" onclick="cancelSession('{{ session.session_id }}')">Отменить</button>
                             {% endif %}
                         </td>
                     </tr>
@@ -181,7 +184,7 @@
                     <form>
                         <header></header>
                         <div class="textarea">
-                            <textarea name="experience" cols="30" placeholder="Describe your experience.."></textarea>
+                            <textarea name="experience" cols="30" placeholder="Оставь свой отзыв"></textarea>
                         </div>
                         <div class="btn">
                             <button class="calendar-submit-2" type="submit">Post</button>
@@ -191,6 +194,10 @@
             </div>
         </div>
     </div>
+
+    <div class="back">
+
+        </div>
 </main>
 <body>
 
@@ -244,6 +251,8 @@ function showAlert(message) {
 
 
 
+
+
 </script>
 
 <script>
@@ -284,6 +293,8 @@ function showAlert(message) {
     alert(message);
 }
 
+
+
 </script>
 
 <script>
@@ -300,6 +311,8 @@ function showAlert(message) {
             }
             return false;
           }
+
+
 
 </script>
 
@@ -323,6 +336,8 @@ window.onclick = function(event) {
     form.style.display = "none";
   }
 }
+
+
 
 
 
@@ -411,6 +426,8 @@ function showAlert(message) {
 
 
 
+
+
 </script>
 
 <script>
@@ -432,6 +449,8 @@ function showAlert(message) {
         });
         document.getElementById('sketch-container').appendChild(sketchButton);
     }
+
+
 
 
 

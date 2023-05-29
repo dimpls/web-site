@@ -32,8 +32,8 @@
     <div class="personal-info">
         <div class="avatar">
             <div class="icon">
-                <img class="avatar-img" src="{% static 'main/img/avatar.png' %}" alt="Аватарка">
-                <img class="pinion" src="{% static 'main/img/pinion.png' %}" alt="шестеренка">
+                <img class="avatar-img" src="{{ user.photo.url }}" alt="Аватарка">
+
             </div>
         </div>
         <div class="info">
@@ -103,6 +103,11 @@
                 </tbody>
             </table>
         </div>
+
+
+    </div>
+
+    <div class="back">
 
     </div>
 

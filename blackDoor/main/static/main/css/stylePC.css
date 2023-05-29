@@ -650,19 +650,19 @@ input#rate-5:checked ~ label{
   text-shadow: 0 0 20px #952;
 }
 #rate-1:checked ~ form header:before{
-  content: "I just hate it \1F922";
+  content: "Очень плохо \1F922";
 }
 #rate-2:checked ~ form header:before{
-  content: "I don't like it \1F625";
+  content: "Плохо \1F625";
 }
 #rate-3:checked ~ form header:before{
-  content: "It is awesome \1F610";
+  content: "Пойдет \1F610";
 }
 #rate-4:checked ~ form header:before{
-  content: "I just like it \1F60E";
+  content: "Хорошо \1F60E";
 }
 #rate-5:checked ~ form header:before{
-  content: "I just love it \1F60D";
+  content: "Великолепно \1F60D";
 }
 .container form{
   display: none;
@@ -718,5 +718,11 @@ form .btn button{
 }
 form .btn button:hover{
   background: #1b1b1b;
+}
+
+.back {
+    width: 100%;
+    height: 150px;
+    background-color: #1E1E1E;
 }
 

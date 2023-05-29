@@ -1,49 +1,52 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'main/css/sketch.css' %}" />
-    <link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC" />
-    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/sketch.css' %}"/>
+<link href="https://fonts.cdnfonts.com/css/ubuntu-title" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Holtwood+One+SC"/>
+<link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
 
-    <body>
-        <header>
-            <div class="header">
-                <div class="header-title">
-                    <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
-                    <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
-                    <div class="header-buttons">
-                        <span><a href="#">Команда</a></span>
-                        <span><a href="portfolio.html">Портфолио</a></span>
+<body>
+<header>
+    <div class="header">
+        <div class="header-title">
+            <a href="{% url 'home' %}">
+                <img class="door" src="{% static 'main/img/door.svg' %}" alt="door">
+            </a>
+            <a href="{% url 'home' %}">
+                <img class="BDSMR" src="{% static 'main/img/BDSMr.svg' %}" alt="BDSMR">
+            </a>
+            <div class="header-buttons">
+                <span><a href="{% url 'portfolio' %}">Команда</a></span>
 
-                    </div>
-                    <a href="personal_cabinet.html">
-                        <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
-                    </a>
+            </div>
+            <a href="{% url 'personal_cabinet' %}">
+                <img class="account-icon" src="{% static 'main/img/account_icon.svg' %}" alt="account_icon">
+            </a>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="container">
+        <h2>Работы наших мастеров</h2>
+        <div class="galary">
+            {% for sketch in sketches %}
+            <div class="card">
+                <img class="tatto" src="{{ sketch.photo.url }}" alt="Пример татуировки">
+                <div class="image_description" data-sketch-id="{{ sketch.sketch_id }}">
+                    <div class="imag_title">Скетч {{ sketch.sketch_id }}</div>
+                    <button class="button-master" onclick="redirectToPersonalCabinet('{{ sketch.sketch_id }}')">
+                        Хочу
+                    </button>
                 </div>
             </div>
-        </header>
-        <main>
-            <div class="container">
-                <h2>Работы наших мастеров</h2>
-                <div class="galary">
-                    {% for sketch in sketches %}
-                    <div class="card">
-                        <img class="tatto" src="{{ sketch.photo.url }}" alt="Пример татуировки">
-                        <div class="image_description" data-sketch-id="{{ sketch.sketch_id }}">
-                            <div class="imag_title">Скетч {{ sketch.sketch_id }}</div>
-                            <button class="button-master" onclick="redirectToPersonalCabinet('{{ sketch.sketch_id }}')">
-                                Хочу
-                            </button>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-        </main>
-        <script>
+</main>
+<script>
         function redirectToPersonalCabinet(sketchId) {
             // Сохраняем sketchId в локальное хранилище
             sessionStorage.setItem('sketchId', sketchId);
@@ -51,9 +54,10 @@
             // Выполняем перенаправление на страницу personal_cabinet/
             window.location.assign('/personal_cabinet/' + sketchId);
         }
-        </script>
 
-    </body>
+</script>
+
+</body>
 
 
 </html>
