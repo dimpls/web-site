@@ -193,14 +193,13 @@ def selectInBD(obj):
         conn.close()
 
 
-
 # emp = Employee(2, 'ИмяФам', 'email@gmail.com', 'password123', '79371112312', 2, 'Master')
 # usr = User(2, 'email@gmail.com', 'password123', 'ИмяФам', '79371112312')
 # sess = Session(2, usr, '12.03.2023', 'Дракона хочу', 'В процессе', emp, 1)
 # rew = Review(2, usr, emp, '7/10')
 # skt = Sketch(1, 'Dog', 1322)
 #
-# #print(selectInBD(sess))
-# #insertToBD(rew)
+# print(selectInBD(sess))
+# insertToBD(rew)
 # deleteFromBD(usr)
-# #updateInBd(sess, 'status', 'test2')
+# updateInBd(sess, 'status', 'test2')
